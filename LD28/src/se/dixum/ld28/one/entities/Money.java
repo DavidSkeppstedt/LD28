@@ -42,7 +42,7 @@ public class Money implements SimpleBaseEntity {
 	@Override
 	public void update(float delta) {
 		
-		if (rect.overlaps(GameScreen.player.getRect())) {
+		if (rect.overlaps(GameScreen.PLAYER.getRect())) {
 			pickUp = true;
 		}
 		

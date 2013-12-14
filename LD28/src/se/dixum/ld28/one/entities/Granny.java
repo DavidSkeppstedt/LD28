@@ -144,8 +144,8 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		
 		
 		
-		if (Math.hypot(Math.abs(GameScreen.player.getSprite().getX()*32 - sprite.getX()),
-				Math.abs(GameScreen.player.getSprite().getY()*32 - sprite.getY())) < 150) {
+		if (Math.hypot(Math.abs(GameScreen.PLAYER.getSprite().getX()*32 - sprite.getX()),
+				Math.abs(GameScreen.PLAYER.getSprite().getY()*32 - sprite.getY())) < 150) {
 			if (SimpleInput.ACTION) {
 				SimpleInput.ACTION = false;
 				//DROP MONEY!

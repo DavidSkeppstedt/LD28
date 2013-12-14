@@ -1,15 +1,9 @@
 package se.dixum.ld28.one.screens;
-
-
-import se.dixum.ld28.one.entities.Dialog;
-import se.dixum.ld28.one.entities.Granny;
-import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.MoneyFactory;
-import se.dixum.ld28.one.map.WorldMap;
 import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
-import se.dixum.simple.gfx.SimpleTileMap;
+import se.dixum.simple.gfx.SimpleSprite;
 import se.dixum.simple.physics.SimpleBodyFactory;
 import se.dixum.simple.screen.base.SimpleScreen;
 import se.dixum.simple.utils.SimpleInput;
@@ -18,29 +12,30 @@ import se.dixum.simple.utils.SimpleSettings;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 
 public class GameScreen extends SimpleScreen {
-
 	
-	private SpriteBatch batch;
-	public static Player player;
-	public static WorldMap home;
-	private OrthographicCamera physCamera;
 	public static SimpleBodyFactory BODYFACTORY;
-	private World world;
-	private Box2DDebugRenderer physRenderer;
-	private GameTimer gameTimer;
-	private BitmapFont font;
-	private Granny granny;
-	public static MoneyFactory MONEYFACTORY;	
-	private Mobster mobster;
-	private Dialog dialogBeginning;
+	public static MoneyFactory MONEYFACTORY;
+	public static World WORLD;
+	public static Player PLAYER;
+	public static SpriteBatch BATCH;
+	public static BitmapFont FONT;
+	public static GameTimer GAME_TIMER;
+	
+	private SimpleSprite logo;
+	
+	//private OrthographicCamera physCamera;
+	//private Box2DDebugRenderer physRenderer;
+
+
 
 	
 	public GameScreen(Game game) {
@@ -55,45 +50,24 @@ public class GameScreen extends SimpleScreen {
 		camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
 		camera.setToOrtho(false);
 		Gdx.input.setInputProcessor(new SimpleInput());
-		batch = new SpriteBatch();		
-		home = new WorldMap("gfx/world/map/town/tiletown.tmx");
-		physCamera = new OrthographicCamera(40,24);
-		physCamera.position.set(20,12,0);
+		BATCH = new SpriteBatch();
+		FONT = new BitmapFont();
 		BODYFACTORY = new SimpleBodyFactory();
+		WORLD = new World(new Vector2(0,0),true);
+		GAME_TIMER = new GameTimer(86400, 600);
 		
-		world = new World(new Vector2(0,0),true);
-		
-		SimpleTileMap.parseTileMap(home.getMap(), "collision", world, 1/32f);
-		player = new Player(world);
-		physRenderer = new Box2DDebugRenderer();
-	
-		font = new BitmapFont();
-		gameTimer = new GameTimer(86400,600);
-	
-	
-		granny = new Granny(world);
+		PLAYER = new Player(WORLD);
 		MONEYFACTORY = new MoneyFactory();
-		dialogBeginning = new Dialog("gfx/world/dialogBeginning.txt",this);
 		
-		mobster = new Mobster(player,dialogBeginning);
+		logo = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/title/title.png"))), new Vector2(320,320));
+		
 
 	}
 
 	@Override
 	public void update(float delta) {
-		
-		
-		player.update(delta);
-		world.step(delta, 6, 3);
-		mobster.update(delta);
-		
-		gameTimer.checkTimer();
-		
-		
-		granny.update(delta);
-		MONEYFACTORY.update(delta);
+		//Nothing to do here
 
-		dialogBeginning.update(delta);
 
 	}
 
@@ -101,33 +75,18 @@ public class GameScreen extends SimpleScreen {
 	public void draw() {
 		SimpleGL.OpenGLClear(0,0,0,1);
 		camera.update();
-
-		physCamera.update();
-		home.draw(camera);
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
+		BATCH.setProjectionMatrix(camera.combined);
+		BATCH.begin();
 			//Render stuff
-			player.draw(batch);
-			mobster.draw(batch);
-
-			granny.draw(batch);
-			MONEYFACTORY.draw(batch);
-		
-			dialogBeginning.draw(batch);
-			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
+			//Maybe a menu here or something
+			logo.drawSprite(BATCH);
 			
 		
-		batch.end();
+		BATCH.end();
 		
-		//physRenderer.render(world, physCamera.combined);
 		
 		
 	}
-	public GameTimer getGameTimer(){
-		return gameTimer;
-	}
-	public Player getPlayer(){
-		return player; 
-	}
+
 
 }
