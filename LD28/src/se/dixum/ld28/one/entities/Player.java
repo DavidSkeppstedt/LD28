@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.entities.base.Angle;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
@@ -65,8 +66,10 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		pRect = new Rectangle();
 		metMobbster = false; 
 		freezPlayer = false;
-		
-
+		if (ScreenSettings.level != 0) {
+			metMobbster = true;
+		}
+		System.out.println(ScreenSettings.level);
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
@@ -97,7 +100,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	@Override
 	public void update(float delta) {
 		changeAnimation(delta);
-		System.out.println(freezPlayer);
+		
 	
 		
 		movement();
