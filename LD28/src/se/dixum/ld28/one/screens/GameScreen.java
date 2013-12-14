@@ -80,7 +80,7 @@ public class GameScreen extends SimpleScreen {
 		
 		if(talk&&Gdx.input.isKeyPressed(Keys.ENTER)&&!keyTimer.getStatus()){
 			
-			keyTimer.start(200);
+			keyTimer.start(1000);
 			
 			speekIndex++;
 			if(speekIndex >= conversations.get(1).size){
