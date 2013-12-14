@@ -81,7 +81,7 @@ public class GameScreen extends SimpleScreen {
 	conversation = new Conversation("test.txt");
 		
 	conversations = conversation.getConversationArray(); 
-	talk = true;
+	talk = false;
 	currentDialog = "";
 	currentSpeecher = "";
 		
@@ -129,7 +129,7 @@ public class GameScreen extends SimpleScreen {
 
 	@Override
 	public void draw() {
-		SimpleGL.OpenGLClear(1,1,1,1);
+		SimpleGL.OpenGLClear(0,0,0,1);
 		camera.update();
 
 		physCamera.update();
@@ -150,7 +150,7 @@ public class GameScreen extends SimpleScreen {
 
 		batch.end();
 		
-		physRenderer.render(world, physCamera.combined);
+		//physRenderer.render(world, physCamera.combined);
 		
 		
 	}

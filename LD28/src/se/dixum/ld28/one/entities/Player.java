@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.simple.entities.base.Angle;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
@@ -21,7 +22,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	SimpleAnimated sprite;
-	Animation right,left,up,down;
+	Animation right,left,up,down,stand_r,stand_l,stand_u,stand_d;
 	ShapeRenderer s;
 	
 	private Body body;
@@ -43,6 +44,11 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		left = sprite.createAnimation(0, 3, 1);
 		up = sprite.createAnimation(0, 3, 2);
 		down = sprite.createAnimation(0, 3, 3);
+		stand_r = sprite.createAnimation(0, 1, 0);
+		stand_l = sprite.createAnimation(2, 3, 1);
+		stand_u = sprite.createAnimation(0, 1, 2);
+		stand_d= sprite.createAnimation(0, 1, 3);
+	
 		sprite.setPosition(new Vector2(100,100));
 		sprite.setCurrentAnimation(right);
 		sprite.setScale(new Vector2(2,2));
@@ -80,6 +86,10 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			body.setLinearVelocity(0, 3);
 		}else {
 			body.setLinearVelocity(0, 0);
+			
+		
+			
+			
 		}
 		if (SimpleInput.DOWN){
 			body.setLinearVelocity(0, -3);
@@ -101,16 +111,43 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 		if (SimpleInput.RIGHT && !(SimpleInput.LEFT || SimpleInput.UP || SimpleInput.DOWN)) {
 			sprite.setCurrentAnimation(right);
+			setAngle(Angle.RIGHT);
 		}
 		if (SimpleInput.LEFT && !(SimpleInput.RIGHT || SimpleInput.UP || SimpleInput.DOWN)) {
 			sprite.setCurrentAnimation(left);
+			setAngle(Angle.LEFT);
 		}
 		if (SimpleInput.UP && !(SimpleInput.LEFT || SimpleInput.RIGHT || SimpleInput.DOWN)) {
 			sprite.setCurrentAnimation(up);
+			setAngle(Angle.UP);
 		}
 		if (SimpleInput.DOWN && !(SimpleInput.LEFT || SimpleInput.UP || SimpleInput.RIGHT)) {
 			sprite.setCurrentAnimation(down);
+			setAngle(Angle.DOWN);
 		}
+		
+		
+		if (body.getLinearVelocity().x == 0 && body.getLinearVelocity().y == 0) {
+			switch (getAngle()) {
+			case DOWN:
+				sprite.setCurrentAnimation(stand_d);
+				break;
+			case LEFT:
+				sprite.setCurrentAnimation(stand_l);
+				break;
+			case RIGHT:
+				sprite.setCurrentAnimation(stand_r);
+				break;
+			case UP:
+				sprite.setCurrentAnimation(stand_u);
+				break;
+		
+			
+			
+			}
+		}
+		
+		
 		
 	}
 	
