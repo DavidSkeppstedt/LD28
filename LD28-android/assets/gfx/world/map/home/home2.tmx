@@ -5,11 +5,11 @@
  </tileset>
  <layer name="Tile Layer 1" width="40" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlEEKwDAIBA2N//9yexGkFJVmg5Z6mNsSBjU7iGgUhy8OAw7kdAaF+E0nNwM5ybRf++3w895qP8x+3/bbkxfST7B61OrO+xvo+aHR+/iDH/p/aD/vbjiQ0xm0Xzar89vN6v1l8BW/bI/22+tX/f4q9IvV99U5ASwBDsE=
+   eJztlEEKwDAIBBMa///l9iJIaVWaDRrqYW5LMhizvbXWk0MXhwI5cjKDgv2GkRuOHGfKb08/MnIZ/DwzLr/3uz3v+7XfnryQfozWo1p33s9Azw+NfI8/+KH/h/Sz9oYcOZlB+0UzO7/VzO5fBLv4RXuU31q/7PuXoV+0vs/OCVrhDsU=
   </data>
  </layer>
  <objectgroup name="collision" width="40" height="24">
-  <object x="318" y="32" width="36" height="160"/>
+  <object x="318" y="32" width="36" height="128"/>
   <object x="320" y="256" width="32" height="193"/>
   <object x="-1" y="0" width="1280" height="30"/>
   <object x="-1" y="33" width="33" height="540"/>

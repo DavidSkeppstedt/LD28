@@ -47,7 +47,7 @@ public class GameScreen extends SimpleScreen {
 	public void init() {
 		
 		
-		camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
+		camera = new OrthographicCamera(1280,768);
 		camera.setToOrtho(false);
 		Gdx.input.setInputProcessor(new SimpleInput());
 		BATCH = new SpriteBatch();
@@ -67,8 +67,12 @@ public class GameScreen extends SimpleScreen {
 	@Override
 	public void update(float delta) {
 		//Nothing to do here
-
-
+		if (SimpleInput.ACTION) {
+			getGame().setScreen(new HouseScreen(getGame()));
+		}
+		
+		
+		
 	}
 
 	@Override
