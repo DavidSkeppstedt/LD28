@@ -26,15 +26,22 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private Animation right,left,up,down,stand_r,stand_l,stand_u,stand_d;
 	private float speed = 6;
 	
+	
 	private Body body;
 	private World world;
 	private Rectangle pRect;
+
+	
+	private boolean metMobbster;
+	private boolean freezPlayer; 
+	
 	public Player(World world) {
 	
 		this.world = world;
 		init();
 		
 	}
+
 	
 	public SimpleAnimated getSprite() {
 		return sprite;
@@ -48,11 +55,18 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 	}
 	
-	
+
+	public Body getBody() {
+		return body;
+	}
 	
 	@Override
 	public void init() {
 		pRect = new Rectangle();
+		metMobbster = false; 
+		freezPlayer = false;
+		
+
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
@@ -76,22 +90,33 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		sprite.setPosition(body.getPosition());
 		sprite.setOrigin(new  Vector2(32,32));
 		
-		System.out.println(body.getPosition());
 		
+		 
 	}
 
 	@Override
 	public void update(float delta) {
 		changeAnimation(delta);
-		movement();
 
+	
+		
+		movement();
+		if(freezPlayer){
+			body.setLinearVelocity(0, 0);
+			
+		}
 		sprite.setPosition(body.getPosition());
 		sprite.setRotation(body.getAngle()*MathUtils.radiansToDegrees);
 		
 		if (Gdx.input.isKeyPressed(Keys.R)) {
 			sprite.setPosition(new Vector2(120,100));
 		}
-	
+		if(sprite.getPosition().x>=10&&!metMobbster){
+			freezPlayer = true;
+			metMobbster = true;
+			
+
+		}
 		
 	}
 	
@@ -174,6 +199,12 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		sprite.drawAnimation(batch,32);
 
 
+	}
+	public void setFreezPlayer(boolean freez){
+		this.freezPlayer = freez; 
+	}
+	public boolean getFreezPlayer(){
+		return freezPlayer;  
 	}
 
 }

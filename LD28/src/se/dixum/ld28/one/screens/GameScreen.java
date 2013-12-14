@@ -3,6 +3,7 @@ package se.dixum.ld28.one.screens;
 
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Granny;
+import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.MoneyFactory;
 import se.dixum.ld28.one.map.WorldMap;
@@ -36,11 +37,11 @@ public class GameScreen extends SimpleScreen {
 	private Box2DDebugRenderer physRenderer;
 	private GameTimer gameTimer;
 	private BitmapFont font;
-	private Dialog test;
 	private Granny granny;
-	
-	public static MoneyFactory MONEYFACTORY;
-	
+	public static MoneyFactory MONEYFACTORY;	
+	private Mobster mobster;
+	private Dialog dialogBeginning;
+
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -69,27 +70,31 @@ public class GameScreen extends SimpleScreen {
 		font = new BitmapFont();
 		gameTimer = new GameTimer(86400,600);
 	
-		
-		test = new Dialog("test.txt");
-		
-		
+	
 		granny = new Granny(world);
 		MONEYFACTORY = new MoneyFactory();
+		dialogBeginning = new Dialog("gfx/world/dialogBeginning.txt",this);
 		
+		mobster = new Mobster(player,dialogBeginning);
+
 	}
 
 	@Override
 	public void update(float delta) {
-	
+		
+		
 		player.update(delta);
 		world.step(delta, 6, 3);
-
+		mobster.update(delta);
+		
 		gameTimer.checkTimer();
 		
-		test.update(delta);
 		
 		granny.update(delta);
 		MONEYFACTORY.update(delta);
+
+		dialogBeginning.update(delta);
+
 	}
 
 	@Override
@@ -103,11 +108,12 @@ public class GameScreen extends SimpleScreen {
 		batch.begin();
 			//Render stuff
 			player.draw(batch);
-			
+			mobster.draw(batch);
+
 			granny.draw(batch);
-			test.draw(batch);
 			MONEYFACTORY.draw(batch);
-			
+		
+			dialogBeginning.draw(batch);
 			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
 			
 		
@@ -116,6 +122,12 @@ public class GameScreen extends SimpleScreen {
 		//physRenderer.render(world, physCamera.combined);
 		
 		
+	}
+	public GameTimer getGameTimer(){
+		return gameTimer;
+	}
+	public Player getPlayer(){
+		return player; 
 	}
 
 }
