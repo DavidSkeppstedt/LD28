@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleSprite;
 
@@ -20,6 +21,7 @@ public class Money implements SimpleBaseEntity {
 	private Vector2 spawnPos;
 	ShapeRenderer s;
 	private boolean pickUp = false;
+	private SimpleSound money;
 	public Money(Vector2 spawnPos) {
 		this.spawnPos = spawnPos;
 		init();
@@ -35,7 +37,7 @@ public class Money implements SimpleBaseEntity {
 								))
 									,spawnPos);
 		rect = new Rectangle(sprite.getPosition().x,sprite.getPosition().y,sprite.getSprite().getWidth(),sprite.getSprite().getHeight());
-		
+		money = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/money/money.wav")));
 
 	}
 
@@ -43,7 +45,11 @@ public class Money implements SimpleBaseEntity {
 	public void update(float delta) {
 		
 		if (rect.overlaps(GameScreen.PLAYER.getRect())) {
+			if (!pickUp) {
+				money.play();
+			}
 			pickUp = true;
+		
 		}
 		
 		
@@ -53,7 +59,7 @@ public class Money implements SimpleBaseEntity {
 	@Override
 	public void draw(SpriteBatch batch) {
 		if (!pickUp) {
-		sprite.drawSprite(batch);
+			sprite.drawSprite(batch);
 		}
 
 	}

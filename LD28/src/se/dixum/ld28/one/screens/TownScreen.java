@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.screens;
 
 import se.dixum.ld28.one.entities.Player;
+import se.dixum.ld28.one.factories.GrannyFactory;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
@@ -20,6 +21,7 @@ public class TownScreen extends SimpleScreen {
 	private SpriteBatch batch;
 	private Player player;
 	private SimpleTileMap map;
+	private GrannyFactory gf;
 
 	public TownScreen(Game game) {
 		super(game);
@@ -41,14 +43,15 @@ public class TownScreen extends SimpleScreen {
 		player.setFreezPlayer(false);
 		
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/30f);
-		
+		gf = new GrannyFactory();
 	}
 
 	@Override
 	public void update(float delta) {
 		player.update(delta);
 		GameScreen.WORLD.step(delta, 6, 3);
-		
+		gf.update(delta);
+		GameScreen.MONEYFACTORY.update(delta);
 	}
 
 	@Override
@@ -59,7 +62,8 @@ public class TownScreen extends SimpleScreen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 			player.draw(batch);
-		
+			gf.draw(batch);
+			GameScreen.MONEYFACTORY.draw(batch);
 			
 		batch.end();
 		

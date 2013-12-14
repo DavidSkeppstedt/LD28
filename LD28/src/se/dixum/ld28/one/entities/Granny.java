@@ -6,7 +6,6 @@ import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.utils.SimpleInput;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+
 
 public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	
@@ -23,7 +22,7 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	private SimpleAnimated sprite;
 	private Animation left,right,up,down
 	,stand_l,stand_r,stand_u,stand_d;
-	private World world;
+	private Vector2 position;
 	
 	private float timer = 2,timer2 = 1.3f;
 	private float count = 0,count2 = 0;
@@ -31,8 +30,8 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	private boolean shouldDisable = false;
 	private SimpleSound scream;
 	private boolean drop = false;
-	public Granny(World world) {
-		this.world  = world;
+	public Granny(Vector2 position) {
+		this.position = position;
 		
 		init();
 		
