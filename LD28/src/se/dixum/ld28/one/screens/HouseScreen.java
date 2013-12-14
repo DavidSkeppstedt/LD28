@@ -5,21 +5,23 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
+import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
 
 public class HouseScreen extends SimpleScreen {
 	
-	private SpriteBatch batch;
-	private BitmapFont font;
+	private SpriteBatch batch;;
 	private SimpleTileMap map;
 	private Mobster mobster;
 	private Player player;
 	private Dialog dialog;
+	private GameTimer gameTimer; 
 	public HouseScreen(Game game) {
 		super(game);
 		
@@ -33,7 +35,7 @@ public class HouseScreen extends SimpleScreen {
 		camera.setToOrtho(false);
 		map = new SimpleTileMap("gfx/world/map/home/home2.tmx",1);
 		SimpleTileMap.parseTileMap(map, "collision", GameScreen.WORLD, 1/32f);
-		dialog = new Dialog("gfx/world/dialogBeginning.txt", null);
+		dialog = new Dialog("gfx/world/dialogBeginning.txt");
 		mobster = new Mobster(player, dialog);
 	}
 
@@ -43,6 +45,7 @@ public class HouseScreen extends SimpleScreen {
 		GameScreen.WORLD.step(delta, 6, 3);
 		mobster.update(delta);
 		dialog.update(delta);
+		//GameScreen.GAME_TIMER.checkTimer();
 	}
 
 	@Override
@@ -56,7 +59,7 @@ public class HouseScreen extends SimpleScreen {
 			player.draw(batch);
 			mobster.draw(batch);
 			dialog.draw(batch);
-			
+			GameStarter.GAME_TIMER.draw(batch);
 		batch.end();
 		
 		

@@ -28,7 +28,7 @@ public class GameScreen extends SimpleScreen {
 	public static Player PLAYER;
 	public static SpriteBatch BATCH;
 	public static BitmapFont FONT;
-	public static GameTimer GAME_TIMER;
+	
 	
 	private SimpleSprite logo;
 	
@@ -54,7 +54,6 @@ public class GameScreen extends SimpleScreen {
 		FONT = new BitmapFont();
 		BODYFACTORY = new SimpleBodyFactory();
 		WORLD = new World(new Vector2(0,0),true);
-		GAME_TIMER = new GameTimer(86400, 600);
 		
 		PLAYER = new Player(WORLD);
 		MONEYFACTORY = new MoneyFactory();
@@ -70,7 +69,6 @@ public class GameScreen extends SimpleScreen {
 		if (SimpleInput.ACTION) {
 			getGame().setScreen(new HouseScreen(getGame()));
 		}
-		
 		
 		
 	}

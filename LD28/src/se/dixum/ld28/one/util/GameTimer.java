@@ -2,6 +2,8 @@ package se.dixum.ld28.one.util;
 
 import se.dixum.ld28.one.screens.GameScreen;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameTimer {
@@ -13,6 +15,7 @@ public class GameTimer {
 	private long timeConstant;
 	private int hours, minutes, seconds;
 	private boolean pause;
+	private BitmapFont font;
 	
 	/**
 	 * 
@@ -26,9 +29,11 @@ public class GameTimer {
 		realTime *= 1000;
 		
 		timeConstant = gameTime/realTime;
-		
+	
 		time = realTime;
 		pause = false;
+		
+		font = new BitmapFont();
 	}
 	public void startTimer(){
 		if(!timerOn){
@@ -60,15 +65,13 @@ public class GameTimer {
 		pause = false; 
 		timeEnd = TimeUtils.millis()+timeLeft;
 	}
-	public String getTimeLeft(){
+	public void draw(SpriteBatch batch){
 		if(timerOn){
 			long temp = timeLeft*timeConstant;
 			hours = (int)temp/3600/1000;
 			minutes = (int)(temp/1000%3600)/60;
 			seconds = (int) (temp/1000%60);
-			return ("Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds);
-		}else{
-			return ("Stop");
+			font.draw(batch, "Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds,500,500);
 		}
 	}
 }
