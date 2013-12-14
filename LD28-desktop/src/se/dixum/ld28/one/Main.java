@@ -1,7 +1,5 @@
 package se.dixum.ld28.one;
 
-import se.dixum.simple.utils.SimpleSettings;
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -12,6 +10,7 @@ public class Main {
 		cfg.useGL20 = true;
 		cfg.width = 1280;
 		cfg.height =768;
+
 		new LwjglApplication(new GameStarter(), cfg);
 	}
 }
