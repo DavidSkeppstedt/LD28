@@ -119,6 +119,8 @@ public class GameScreen extends SimpleScreen {
 	public GameTimer getGameTimer(){
 		return gameTimer;
 	}
-
+	public Player getPlayer(){
+		return player; 
+	}
 
 }

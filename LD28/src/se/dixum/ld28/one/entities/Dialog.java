@@ -67,6 +67,7 @@ public class Dialog implements SimpleBaseEntity{
 				speekIndex = 0;
 				talked = true; 
 				gameScreen.getGameTimer().startTimer();
+				gameScreen.getPlayer().setFreezPlayer(false);
 	
 			}else{
 				currentDialog = conversations.get(1).get(speekIndex);
