@@ -1,12 +1,14 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.utils.SimpleInput;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,10 +25,12 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	,stand_l,stand_r,stand_u,stand_d;
 	private World world;
 	
-	private float timer = 2;
-	private float count = 0;
+	private float timer = 2,timer2 = 1.3f;
+	private float count = 0,count2 = 0;
 	private boolean afraid = false;
 	private boolean shouldDisable = false;
+	private SimpleSound scream;
+	private boolean drop = false;
 	public Granny(World world) {
 		this.world  = world;
 		
@@ -50,7 +54,10 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		
 		sprite.setPosition(new Vector2(320,320));
 		sprite.setVelX(1.5f);
-
+		
+		scream = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/granny/granny.ogg")));
+		
+		
 	}
 
 	@Override
@@ -59,14 +66,33 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		sprite.setPosition(sprite.getX() + sprite.getVelX(),sprite.getY()+sprite.getVelY());
 		move();
 		changeAnim();
+		dropMoney();
 		
 	}
 	private void dropMoney() {
 		//Fun code here!
+		if (drop) {
+				
+				if (count2 > timer2) {
+					System.out.println("MEONY");
+					GameScreen.MONEYFACTORY.addMoney(new Money(new Vector2(sprite.getX(),sprite.getY())));
+					count2 = 0;
+					drop=false;
+				}else {
+					count2 +=Gdx.graphics.getDeltaTime();
+				}
+				//
+			
+		
+		
+		}
+	
 	}
 	
 	private void runAway() {
 		System.out.println("ARGH!");
+		scream.play();
+		
 		count = -100;
 		shouldDisable = true;
 		//Play some  sound here maybe?
@@ -124,7 +150,8 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 				SimpleInput.ACTION = false;
 				//DROP MONEY!
 				//RUN AWAY!
-				dropMoney();
+				drop = true;
+				
 				runAway();
 			}
 			
@@ -172,6 +199,7 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
+		 
 		sprite.drawAnimation(batch);
 
 	}

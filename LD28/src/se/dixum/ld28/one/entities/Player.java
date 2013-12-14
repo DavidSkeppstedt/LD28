@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -27,6 +28,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	
 	private Body body;
 	private World world;
+	private Rectangle pRect;
 	public Player(World world) {
 	
 		this.world = world;
@@ -38,9 +40,19 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		return sprite;
 	}
 	
+	public Rectangle getRect() {
+		pRect.set(body.getPosition().x*32, body.getPosition().y*32, 64, 64);
+		
+		return pRect;
+		
+		
+	}
+	
+	
+	
 	@Override
 	public void init() {
-		
+		pRect = new Rectangle();
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);

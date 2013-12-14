@@ -4,6 +4,7 @@ package se.dixum.ld28.one.screens;
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Granny;
 import se.dixum.ld28.one.entities.Player;
+import se.dixum.ld28.one.factories.MoneyFactory;
 import se.dixum.ld28.one.map.WorldMap;
 import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
@@ -38,6 +39,9 @@ public class GameScreen extends SimpleScreen {
 	private Dialog test;
 	private Granny granny;
 	
+	public static MoneyFactory MONEYFACTORY;
+	
+	
 	public GameScreen(Game game) {
 		super(game);
 
@@ -46,7 +50,7 @@ public class GameScreen extends SimpleScreen {
 	@Override
 	public void init() {
 		
-
+		
 		camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
 		camera.setToOrtho(false);
 		Gdx.input.setInputProcessor(new SimpleInput());
@@ -68,8 +72,9 @@ public class GameScreen extends SimpleScreen {
 		
 		test = new Dialog("test.txt");
 		
-		granny = new Granny(world);
 		
+		granny = new Granny(world);
+		MONEYFACTORY = new MoneyFactory();
 		
 	}
 
@@ -84,6 +89,7 @@ public class GameScreen extends SimpleScreen {
 		test.update(delta);
 		
 		granny.update(delta);
+		MONEYFACTORY.update(delta);
 	}
 
 	@Override
@@ -100,7 +106,7 @@ public class GameScreen extends SimpleScreen {
 			
 			granny.draw(batch);
 			test.draw(batch);
-			
+			MONEYFACTORY.draw(batch);
 			
 			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
 			
