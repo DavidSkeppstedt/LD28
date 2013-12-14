@@ -21,6 +21,8 @@ public class GameTimer {
 		gameTime *= 1000;
 		realTime *= 1000;
 		
+		timeConstant = gameTime/realTime;
+		
 		if(!timerOn){
 			time = realTime;
 			timeEnd = TimeUtils.millis() + time;
@@ -43,7 +45,6 @@ public class GameTimer {
 			hours = (int)temp/3600/1000;
 			minutes = (int)(temp/1000%3600)/60;
 			seconds = (int) (temp/1000%60);
-			
 			return ("Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds);
 		}else{
 			return ("Stop");

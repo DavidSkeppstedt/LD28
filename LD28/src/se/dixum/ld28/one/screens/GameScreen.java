@@ -2,18 +2,24 @@ package se.dixum.ld28.one.screens;
 
 import se.dixum.ld28.one.util.Conversation;
 import se.dixum.ld28.one.util.GameTimer;
+import se.dixum.ld28.one.util.Timer;
 import se.dixum.simple.gfx.SimpleGL;
+import se.dixum.simple.gfx.SimpleSprite;
 import se.dixum.simple.screen.base.SimpleScreen;
 import se.dixum.simple.utils.SimpleSettings;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen extends SimpleScreen {
 
@@ -24,6 +30,17 @@ public class GameScreen extends SimpleScreen {
 	private BitmapFont font;
 	
 	private Conversation conversation; 
+	private Array<Array<String>> conversations; 
+	
+	private String currentSpeecher, currentDialog;
+	
+	private int speekIndex = 0;
+	
+	private	SimpleSprite dialogRectangle; 
+	private boolean talk;  
+	
+	private Timer keyTimer; 
+	
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -40,29 +57,47 @@ public class GameScreen extends SimpleScreen {
 		gameTimer = new GameTimer(86400,600);
 		conversation = new Conversation("test.txt");
 		
+		conversations = conversation.getConversationArray(); 
+		talk = true;
+		currentDialog = "";
+		currentSpeecher = "";
 		
-		System.out.print(conversation.printConversation());
-		System.out.println("--------------------");
-		System.out.print(conversation.printConversation(0));
-		System.out.println("--------------------");
-		Array<Array<String>> arr = conversation.getConversationArray();
-
-		for(int i = 0;i < arr.get(0).size;i++) {
-			System.out.print(
-					arr.get(0).get(i)+":\n\t"+
-					arr.get(1).get(i)+"\n"
-					);
-		}
+		dialogRectangle = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/dialogRectangle.png"))),new Vector2(0, 0));
+		
+		keyTimer = new Timer();
+		
+		
 	}
 
 	@Override
 	public void update(float delta) {
 	
+		
+		
 		gameTimer.checkTimer();
 
+		keyTimer.testTimer();
 		
-		
+		if(talk&&Gdx.input.isKeyPressed(Keys.ENTER)&&!keyTimer.getStatus()){
+			
+			keyTimer.start(200);
+			
+			speekIndex++;
+			if(speekIndex >= conversations.get(1).size){
+				talk = false; 
+				speekIndex = 0;
 	
+			}else{
+				currentDialog = conversations.get(1).get(speekIndex);
+				currentSpeecher = conversations.get(0).get(speekIndex);
+			}
+			
+		}
+		if(talk&&speekIndex==0){
+			currentDialog = conversations.get(1).get(speekIndex);
+			currentSpeecher = conversations.get(0).get(speekIndex);
+		}
+			  
 	}
 
 	@Override
@@ -74,7 +109,15 @@ public class GameScreen extends SimpleScreen {
 		batch.begin();
 			//Render stuff
 		
-		font.draw(batch, gameTimer.getTimeLeft(), 100, 100);
+		
+		
+		
+		font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
+		if(talk){
+			dialogRectangle.drawSprite(batch);
+			font.draw(batch, currentSpeecher, 30, 70);
+			font.draw(batch, currentDialog, 60, 40);
+		}
 		
 		batch.end();
 		
