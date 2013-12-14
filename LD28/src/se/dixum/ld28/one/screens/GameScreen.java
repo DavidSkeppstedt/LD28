@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.screens;
 
 
+import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.map.WorldMap;
 import se.dixum.simple.gfx.SimpleGL;
@@ -40,15 +41,8 @@ public class GameScreen extends SimpleScreen {
 	private Box2DDebugRenderer physRenderer;
 	private GameTimer gameTimer;
 	private BitmapFont font;
-	private Conversation conversation; 
-	private Array<Array<String>> conversations; 
-	private String currentSpeecher, currentDialog;
-	private int speekIndex = 0;
-	private	SimpleSprite dialogRectangle; 
-	private boolean talk;  
 	
-	private Timer keyTimer; 
-	
+	private Dialog test;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -59,37 +53,28 @@ public class GameScreen extends SimpleScreen {
 	public void init() {
 		
 
-	camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
-	camera.setToOrtho(false);
-	Gdx.input.setInputProcessor(new SimpleInput());
-	batch = new SpriteBatch();
+		camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
+		camera.setToOrtho(false);
+		Gdx.input.setInputProcessor(new SimpleInput());
+		batch = new SpriteBatch();
+		
+		
+		home = new WorldMap("gfx/world/map/home2.tmx");
+		physCamera = new OrthographicCamera(40,24);
+		physCamera.position.set(20,12,0);
+		BODYFACTORY = new SimpleBodyFactory();
+		
+		world = new World(new Vector2(0,0),true);
+		
+		SimpleTileMap.parseTileMap(home.getMap(), "collision", world, 1/32f);
+		player = new Player(world);
+		physRenderer = new Box2DDebugRenderer();
 	
+		font = new BitmapFont();
+		gameTimer = new GameTimer(86400,600);
 	
-	home = new WorldMap("gfx/world/map/home2.tmx");
-	physCamera = new OrthographicCamera(40,24);
-	physCamera.position.set(20,12,0);
-	BODYFACTORY = new SimpleBodyFactory();
-	
-	world = new World(new Vector2(0,0),true);
-	
-	SimpleTileMap.parseTileMap(home.getMap(), "collision", world, 1/32f);
-	player = new Player(world);
-	physRenderer = new Box2DDebugRenderer();
-
-	font = new BitmapFont();
-	gameTimer = new GameTimer(86400,600);
-	conversation = new Conversation("test.txt");
 		
-	conversations = conversation.getConversationArray(); 
-	talk = true;
-	currentDialog = "";
-	currentSpeecher = "";
-		
-	dialogRectangle = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/dialogRectangle.png"))),new Vector2(0, 0));
-		
-	keyTimer = new Timer();
-		
-		
+		test = new Dialog("test.txt");
 
 	}
 
@@ -99,32 +84,9 @@ public class GameScreen extends SimpleScreen {
 		player.update(delta);
 		world.step(delta, 6, 3);
 
-		
 		gameTimer.checkTimer();
-
-		keyTimer.testTimer();
 		
-		if(talk&&Gdx.input.isKeyPressed(Keys.ENTER)&&!keyTimer.getStatus()){
-			
-			keyTimer.start(1000);
-			
-			speekIndex++;
-			if(speekIndex >= conversations.get(1).size){
-				talk = false; 
-				speekIndex = 0;
-
-	
-			}else{
-				currentDialog = conversations.get(1).get(speekIndex);
-				currentSpeecher = conversations.get(0).get(speekIndex);
-			}
-			
-		}
-		if(talk&&speekIndex==0){
-			currentDialog = conversations.get(1).get(speekIndex);
-			currentSpeecher = conversations.get(0).get(speekIndex);
-		}
-			  
+		test.update(delta);
 	}
 
 	@Override
@@ -138,16 +100,12 @@ public class GameScreen extends SimpleScreen {
 		batch.begin();
 			//Render stuff
 			player.draw(batch);
-
+			
+			test.draw(batch);
 	
 			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
-			if(talk){
-				dialogRectangle.drawSprite(batch);
-				font.draw(batch, currentSpeecher, 30, 70);
-				font.draw(batch, currentDialog, 60, 40);
-			}
 			
-
+		
 		batch.end();
 		
 		physRenderer.render(world, physCamera.combined);
