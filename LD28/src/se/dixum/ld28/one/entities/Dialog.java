@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.Conversation;
 import se.dixum.ld28.one.util.Timer;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
@@ -22,12 +23,15 @@ public class Dialog implements SimpleBaseEntity{
 	private int speekIndex = 0;
 	private	SimpleSprite dialogRectangle; 
 	private boolean talk;  
+	private boolean talked;
+	private GameScreen gameScreen;
 	
 	private Timer keyTimer; 
 	
 	private BitmapFont font;
 	
-	public Dialog(String path){
+	public Dialog(String path,GameScreen gameScreen){
+		this.gameScreen = gameScreen;
 		conversation = new Conversation(path);
 		init();
 	}
@@ -37,6 +41,7 @@ public class Dialog implements SimpleBaseEntity{
 		
 		conversations = conversation.getConversationArray(); 
 		talk = false;
+		talked = false;
 		currentDialog = "";
 		currentSpeecher = "";
 			
@@ -60,7 +65,8 @@ public class Dialog implements SimpleBaseEntity{
 			if(speekIndex >= conversations.get(1).size){
 				talk = false; 
 				speekIndex = 0;
-
+				talked = true; 
+				gameScreen.getGameTimer().startTimer();
 	
 			}else{
 				currentDialog = conversations.get(1).get(speekIndex);
@@ -76,7 +82,7 @@ public class Dialog implements SimpleBaseEntity{
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		if(talk){
+		if(talk&&!talked){
 			dialogRectangle.drawSprite(batch);
 			font.draw(batch, currentSpeecher, 30, 70);
 			font.draw(batch, currentDialog, 60, 40);

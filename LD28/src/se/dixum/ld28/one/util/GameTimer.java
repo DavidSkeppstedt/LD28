@@ -1,5 +1,7 @@
 package se.dixum.ld28.one.util;
 
+import se.dixum.ld28.one.screens.GameScreen;
+
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameTimer {
@@ -9,7 +11,6 @@ public class GameTimer {
 	private long time; 
 	private long timeLeft; 
 	private long timeConstant;
-	
 	private int hours, minutes, seconds;
 	
 	/**
@@ -18,17 +19,22 @@ public class GameTimer {
 	 * @param realTime in seconds
 	 */
 	public GameTimer(long gameTime, long realTime){
+
+		
 		gameTime *= 1000;
 		realTime *= 1000;
 		
 		timeConstant = gameTime/realTime;
 		
+		time = realTime;
+	
+	}
+	public void startTimer(){
 		if(!timerOn){
-			time = realTime;
+			
 			timeEnd = TimeUtils.millis() + time;
 			timerOn = true;
 		}
-	
 	}
 	public void checkTimer(){
 		if(timerOn){

@@ -74,7 +74,7 @@ public class GameScreen extends SimpleScreen {
 		gameTimer = new GameTimer(86400,600);
 	
 		
-		dialogBeginning = new Dialog("gfx/world/dialogBeginning.txt");
+		dialogBeginning = new Dialog("gfx/world/dialogBeginning.txt",this);
 		
 		mobster = new Mobster(player,dialogBeginning);
 	}
@@ -116,5 +116,9 @@ public class GameScreen extends SimpleScreen {
 		
 		
 	}
+	public GameTimer getGameTimer(){
+		return gameTimer;
+	}
+
 
 }
