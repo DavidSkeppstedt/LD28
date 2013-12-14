@@ -1,5 +1,7 @@
 package se.dixum.ld28.one;
 
+import se.dixum.simple.utils.SimpleSettings;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -8,8 +10,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "LD28";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
+		cfg.width = SimpleSettings.GWIDTH;
+		cfg.height = SimpleSettings.GHEIGHT;
 		
 		new LwjglApplication(new GameStarter(), cfg);
 	}
