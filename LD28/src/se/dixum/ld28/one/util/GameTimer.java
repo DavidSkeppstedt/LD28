@@ -20,8 +20,6 @@ public class GameTimer {
 	public GameTimer(long gameTime, long realTime){
 		gameTime *= 1000;
 		realTime *= 1000;
-		 
-		System.out.println(timeConstant = gameTime/realTime);
 		
 		if(!timerOn){
 			time = realTime;

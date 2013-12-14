@@ -1,5 +1,6 @@
 package se.dixum.ld28.one.screens;
 
+import se.dixum.ld28.one.util.Conversation;
 import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.screen.base.SimpleScreen;
@@ -21,6 +22,8 @@ public class GameScreen extends SimpleScreen {
 	
 	private BitmapFont font;
 	
+	private Conversation conversation; 
+	
 	public GameScreen(Game game) {
 		super(game);
 
@@ -34,6 +37,8 @@ public class GameScreen extends SimpleScreen {
 	batch = new SpriteBatch();
 	font = new BitmapFont();
 	gameTimer = new GameTimer(86400,600);
+	conversation = new Conversation("test.txt");
+	conversation.printConversation();
 		
 	}
 
