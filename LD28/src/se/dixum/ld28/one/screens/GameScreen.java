@@ -1,17 +1,25 @@
 package se.dixum.ld28.one.screens;
 
+import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.screen.base.SimpleScreen;
 import se.dixum.simple.utils.SimpleSettings;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Timer;
+
 public class GameScreen extends SimpleScreen {
 
 	
 	private SpriteBatch batch;
+	private GameTimer gameTimer;
 	
+	private BitmapFont font;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -24,14 +32,16 @@ public class GameScreen extends SimpleScreen {
 	camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
 	camera.setToOrtho(false);
 	batch = new SpriteBatch();
-	
+	font = new BitmapFont();
+	gameTimer = new GameTimer();
 		
 	}
 
 	@Override
 	public void update(float delta) {
 	
-		
+		gameTimer.checkTimer();
+
 		
 		
 	
@@ -42,10 +52,12 @@ public class GameScreen extends SimpleScreen {
 		SimpleGL.OpenGLClear(0,0,0,0);
 		camera.update();
 		
-		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 			//Render stuff
+		
+		font.draw(batch, gameTimer.getTimeLeft(), 100, 100);
+		
 		batch.end();
 		
 		
