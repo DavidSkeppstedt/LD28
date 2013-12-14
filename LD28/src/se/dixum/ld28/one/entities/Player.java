@@ -21,9 +21,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends SimpleEntity implements SimpleBaseEntity {
 
-	SimpleAnimated sprite;
-	Animation right,left,up,down,stand_r,stand_l,stand_u,stand_d;
-	ShapeRenderer s;
+	private SimpleAnimated sprite;
+	private Animation right,left,up,down,stand_r,stand_l,stand_u,stand_d;
+	private float speed = 6;
 	
 	private Body body;
 	private World world;
@@ -37,7 +37,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	
 	@Override
 	public void init() {
-		s = new ShapeRenderer();
+		
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
@@ -52,9 +52,9 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		sprite.setPosition(new Vector2(100,100));
 		sprite.setCurrentAnimation(right);
 		sprite.setScale(new Vector2(2,2));
-
+		
 	
-		body = GameScreen.BODYFACTORY.createBody(new Vector2(5,5), BodyType.DynamicBody).
+		body = GameScreen.BODYFACTORY.createBody(new Vector2(5,15), BodyType.DynamicBody).
 				createFixture(GameScreen.BODYFACTORY.createPolyShape((30/32f)/2f, (62/32f)/2f),0.5f,.5f,0)
 				.build(world);
 		body.setFixedRotation(true);
@@ -83,7 +83,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private void movement() {
 		
 		if (SimpleInput.UP) {
-			body.setLinearVelocity(0, 3);
+			body.setLinearVelocity(0, speed);
 		}else {
 			body.setLinearVelocity(0, 0);
 			
@@ -92,13 +92,13 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			
 		}
 		if (SimpleInput.DOWN){
-			body.setLinearVelocity(0, -3);
+			body.setLinearVelocity(0, -speed);
 		}
 		if (SimpleInput.RIGHT) {
-			body.setLinearVelocity(3, 0);
+			body.setLinearVelocity(speed, 0);
 		}
 		if (SimpleInput.LEFT){
-			body.setLinearVelocity(-3, 0);
+			body.setLinearVelocity(-speed, 0);
 		}
 		
 		
