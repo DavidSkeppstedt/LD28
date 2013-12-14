@@ -57,6 +57,16 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		sprite.setX(sprite.getX()+sprite.getVelX());
 		sprite.setY(sprite.getY()+sprite.getVelY());
 		
+		if(sprite.getVelX() > 0){
+			sprite.setCurrentAnimation(right);
+		}else if(sprite.getVelX() < 0){
+			sprite.setCurrentAnimation(left);
+		}else if(sprite.getVelY() > 0){
+			sprite.setCurrentAnimation(up);
+		}else if(sprite.getVelY() < 0){
+			sprite.setCurrentAnimation(down);
+		}
+		
 		
 	}
 	private void walkFirstMap(){

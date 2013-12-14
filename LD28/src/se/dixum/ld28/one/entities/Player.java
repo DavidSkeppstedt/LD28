@@ -100,9 +100,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	@Override
 	public void update(float delta) {
 		changeAnimation(delta);
-		
 	
-		
 		movement();
 		if(freezPlayer){
 			body.setLinearVelocity(0, 0);

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.Conversation;
 import se.dixum.ld28.one.util.Timer;
@@ -24,14 +25,12 @@ public class Dialog implements SimpleBaseEntity{
 	private	SimpleSprite dialogRectangle; 
 	private boolean talk;  
 	private boolean talked;
-	private GameScreen gameScreen;
 	
 	private Timer keyTimer; 
 	
 	private BitmapFont font;
 	
-	public Dialog(String path,GameScreen gameScreen){
-		this.gameScreen = gameScreen;
+	public Dialog(String path){
 		conversation = new Conversation(path);
 		init();
 	}
@@ -66,7 +65,7 @@ public class Dialog implements SimpleBaseEntity{
 				talk = false; 
 				speekIndex = 0;
 				talked = true; 
-				GameScreen.GAME_TIMER.startTimer();
+				GameStarter.GAME_TIMER.startTimer();
 				GameScreen.PLAYER.setFreezPlayer(false);
 	
 			}else{

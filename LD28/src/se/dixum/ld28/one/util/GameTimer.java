@@ -2,6 +2,8 @@ package se.dixum.ld28.one.util;
 
 import se.dixum.ld28.one.screens.GameScreen;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameTimer {
@@ -12,6 +14,8 @@ public class GameTimer {
 	private long timeLeft; 
 	private long timeConstant;
 	private int hours, minutes, seconds;
+	private boolean pause;
+	private BitmapFont font;
 	
 	/**
 	 * 
@@ -19,15 +23,17 @@ public class GameTimer {
 	 * @param realTime in seconds
 	 */
 	public GameTimer(long gameTime, long realTime){
-
+		
 		
 		gameTime *= 1000;
 		realTime *= 1000;
 		
 		timeConstant = gameTime/realTime;
-		
-		time = realTime;
 	
+		time = realTime;
+		pause = false;
+		
+		font = new BitmapFont();
 	}
 	public void startTimer(){
 		if(!timerOn){
@@ -37,7 +43,7 @@ public class GameTimer {
 		}
 	}
 	public void checkTimer(){
-		if(timerOn){
+		if(timerOn&&!pause){
 			timeLeft = (timeEnd - TimeUtils.millis());
 			if(timeLeft < 0){
 				timerOn = false;
@@ -45,15 +51,27 @@ public class GameTimer {
 		}
 		
 	}
-	public String getTimeLeft(){
+	/**
+	 * @param in milliseconds
+	 */
+	public void subtractTime(long time){
+		timeEnd -= time/timeConstant;
+	}
+	public void pause(){
+		pause = true;
+		
+	}
+	public void resume(){
+		pause = false; 
+		timeEnd = TimeUtils.millis()+timeLeft;
+	}
+	public void draw(SpriteBatch batch){
 		if(timerOn){
 			long temp = timeLeft*timeConstant;
 			hours = (int)temp/3600/1000;
 			minutes = (int)(temp/1000%3600)/60;
 			seconds = (int) (temp/1000%60);
-			return ("Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds);
-		}else{
-			return ("Stop");
+			font.draw(batch, "Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds,500,500);
 		}
 	}
 }
