@@ -8,14 +8,23 @@ public class GameTimer {
 	private long timeEnd;
 	private long time; 
 	private long timeLeft; 
+	private long timeConstant;
 	
 	private int hours, minutes, seconds;
 	
-	public GameTimer(){
-		
+	/**
+	 * 
+	 * @param gameTime in seconds 
+	 * @param realTime in seconds
+	 */
+	public GameTimer(long gameTime, long realTime){
+		gameTime *= 1000;
+		realTime *= 1000;
+		 
+		System.out.println(timeConstant = gameTime/realTime);
 		
 		if(!timerOn){
-			time = 600*1000;
+			time = realTime;
 			timeEnd = TimeUtils.millis() + time;
 			timerOn = true;
 		}
@@ -23,7 +32,7 @@ public class GameTimer {
 	}
 	public void checkTimer(){
 		if(timerOn){
-			timeLeft = (timeEnd - TimeUtils.millis())/1000;
+			timeLeft = (timeEnd - TimeUtils.millis());
 			if(timeLeft < 0){
 				timerOn = false;
 			}
@@ -32,12 +41,12 @@ public class GameTimer {
 	}
 	public String getTimeLeft(){
 		if(timerOn){
-			long temp = timeLeft*144;
-			hours = (int)temp/3600;
-			minutes = (int)(temp%3600)/60;
-			seconds = (int) (temp%60);
+			long temp = timeLeft*timeConstant;
+			hours = (int)temp/3600/1000;
+			minutes = (int)(temp/1000%3600)/60;
+			seconds = (int) (temp/1000%60);
 			
-			return (hours+" "+minutes+" "+seconds);
+			return ("Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds);
 		}else{
 			return ("Stop");
 		}

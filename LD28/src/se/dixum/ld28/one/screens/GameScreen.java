@@ -33,7 +33,7 @@ public class GameScreen extends SimpleScreen {
 	camera.setToOrtho(false);
 	batch = new SpriteBatch();
 	font = new BitmapFont();
-	gameTimer = new GameTimer();
+	gameTimer = new GameTimer(86400,600);
 		
 	}
 
