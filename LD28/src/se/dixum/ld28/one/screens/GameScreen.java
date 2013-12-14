@@ -2,38 +2,32 @@ package se.dixum.ld28.one.screens;
 
 
 import se.dixum.ld28.one.entities.Dialog;
+import se.dixum.ld28.one.entities.Granny;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.map.WorldMap;
+import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.physics.SimpleBodyFactory;
-import se.dixum.ld28.one.util.Conversation;
-import se.dixum.ld28.one.util.GameTimer;
-import se.dixum.ld28.one.util.Timer;
-import se.dixum.simple.gfx.SimpleSprite;
 import se.dixum.simple.screen.base.SimpleScreen;
 import se.dixum.simple.utils.SimpleInput;
 import se.dixum.simple.utils.SimpleSettings;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
 
 public class GameScreen extends SimpleScreen {
 
 	
 	private SpriteBatch batch;
-	private Player player;
+	public static Player player;
 	public static WorldMap home;
 	private OrthographicCamera physCamera;
 	public static SimpleBodyFactory BODYFACTORY;
@@ -41,8 +35,8 @@ public class GameScreen extends SimpleScreen {
 	private Box2DDebugRenderer physRenderer;
 	private GameTimer gameTimer;
 	private BitmapFont font;
-	
 	private Dialog test;
+	private Granny granny;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -57,7 +51,7 @@ public class GameScreen extends SimpleScreen {
 		camera.setToOrtho(false);
 		Gdx.input.setInputProcessor(new SimpleInput());
 		batch = new SpriteBatch();		
-		home = new WorldMap("gfx/world/map/home2.tmx");
+		home = new WorldMap("gfx/world/map/town/tiletown.tmx");
 		physCamera = new OrthographicCamera(40,24);
 		physCamera.position.set(20,12,0);
 		BODYFACTORY = new SimpleBodyFactory();
@@ -73,7 +67,10 @@ public class GameScreen extends SimpleScreen {
 	
 		
 		test = new Dialog("test.txt");
-
+		
+		granny = new Granny(world);
+		
+		
 	}
 
 	@Override
@@ -85,6 +82,8 @@ public class GameScreen extends SimpleScreen {
 		gameTimer.checkTimer();
 		
 		test.update(delta);
+		
+		granny.update(delta);
 	}
 
 	@Override
@@ -99,8 +98,10 @@ public class GameScreen extends SimpleScreen {
 			//Render stuff
 			player.draw(batch);
 			
+			granny.draw(batch);
 			test.draw(batch);
-	
+			
+			
 			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
 			
 		

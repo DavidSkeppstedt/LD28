@@ -36,7 +36,7 @@ public class Dialog implements SimpleBaseEntity{
 		
 		
 		conversations = conversation.getConversationArray(); 
-		talk = true;
+		talk = false;
 		currentDialog = "";
 		currentSpeecher = "";
 			

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiletown" tilewidth="32" tileheight="32">
+  <image source="tiletown.png" width="128" height="32"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1jEOACAIBEEE//9mW2PoSOSiW2xBN8k1uJl5c7E1j7vbpuyLJHz3fKMQPnz48FUM1V7wqe+LDx8+zf8vc+L7y7cAqvEHZA==
+  </data>
+ </layer>
+ <objectgroup name="collision" width="40" height="24">
+  <object x="0" y="-1" width="1278" height="21"/>
+  <object x="1" y="21" width="10" height="747"/>
+  <object x="13" y="760" width="1266" height="10"/>
+  <object x="1270" y="19" width="9" height="741"/>
+ </objectgroup>
+</map>

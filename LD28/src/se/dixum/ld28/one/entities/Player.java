@@ -34,6 +34,9 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 	}
 	
+	public SimpleAnimated getSprite() {
+		return sprite;
+	}
 	
 	@Override
 	public void init() {
