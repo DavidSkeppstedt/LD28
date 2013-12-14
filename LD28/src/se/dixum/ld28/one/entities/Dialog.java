@@ -82,5 +82,8 @@ public class Dialog implements SimpleBaseEntity{
 			font.draw(batch, currentDialog, 60, 40);
 		}
 	}
+	public void startDialog(){
+		talk = true;
+	}
 
 }

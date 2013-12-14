@@ -18,9 +18,11 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 	private boolean walk;
 	
 	private Player player;
+	private Dialog dialog;
 	
-	public Mobster(Player player){
+	public Mobster(Player player, Dialog dialog){
 		this.player = player;
+		this.dialog = dialog;
 		init();
 	}
 	
@@ -58,10 +60,10 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		
 	}
 	private void walkFirstMap(){
-		System.out.println(sprite.getY());
+
 		if(sprite.getY()>300&& sprite.getX()==10*32){
 			sprite.setVelocity(0, 0);
-			System.out.println("d");
+			dialog.startDialog();
 			
 		}else if(sprite.getY() > 510){
 			sprite.setVelocity(-1*speed,0);

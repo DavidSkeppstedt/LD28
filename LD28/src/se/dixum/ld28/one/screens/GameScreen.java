@@ -44,7 +44,7 @@ public class GameScreen extends SimpleScreen {
 	private BitmapFont font;
 	private Mobster mobster;
 	
-	private Dialog test;
+	private Dialog dialogBeginning;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -74,9 +74,9 @@ public class GameScreen extends SimpleScreen {
 		gameTimer = new GameTimer(86400,600);
 	
 		
-		test = new Dialog("test.txt");
+		dialogBeginning = new Dialog("gfx/world/dialogBeginning.txt");
 		
-		mobster = new Mobster(player);
+		mobster = new Mobster(player,dialogBeginning);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class GameScreen extends SimpleScreen {
 		
 		gameTimer.checkTimer();
 		
-		test.update(delta);
+		dialogBeginning.update(delta);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class GameScreen extends SimpleScreen {
 			player.draw(batch);
 			mobster.draw(batch);
 			
-			test.draw(batch);
+			dialogBeginning.draw(batch);
 	
 			font.draw(batch, gameTimer.getTimeLeft(),200, SimpleSettings.GHEIGHT-100);
 			
