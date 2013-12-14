@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class Main {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "LD28";
+		cfg.title = "One Day - Payback";
 		cfg.useGL20 = false;
 		cfg.width = SimpleSettings.GWIDTH;
 		cfg.height = SimpleSettings.GHEIGHT;
