@@ -84,7 +84,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 	
 		body = GameScreen.BODYFACTORY.createBody(new Vector2(5,15), BodyType.DynamicBody).
-				createFixture(GameScreen.BODYFACTORY.createPolyShape((30/32f)/2f, (62/32f)/2f),0.5f,.5f,0)
+				createFixture(GameScreen.BODYFACTORY.createPolyShape((30/32f)/2f, (58/32f)/2f),0.5f,.5f,0)
 				.build(world);
 		body.setFixedRotation(true);
 		sprite.setPosition(body.getPosition());
@@ -97,7 +97,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	@Override
 	public void update(float delta) {
 		changeAnimation(delta);
-
+		System.out.println(freezPlayer);
 	
 		
 		movement();
