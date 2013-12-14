@@ -7,23 +7,28 @@ import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.utils.SimpleInput;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	SimpleAnimated sprite;
 	Animation right,left,up,down;
 	ShapeRenderer s;
-	public Player() {
 	
+	private Body body;
+	private World world;
+	public Player(World world) {
+	
+		this.world = world;
 		init();
 		
 	}
@@ -38,22 +43,35 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		left = sprite.createAnimation(0, 3, 1);
 		up = sprite.createAnimation(0, 3, 2);
 		down = sprite.createAnimation(0, 3, 3);
-		sprite.setPosition(new Vector2(320,100));
+		sprite.setPosition(new Vector2(100,100));
 		sprite.setCurrentAnimation(right);
 		sprite.setScale(new Vector2(2,2));
 	
-		sprite.setVelocity(new Vector2(0,0));
+		//sprite.setVelocity(new Vector2(0,0));
 	
+		
+		body = GameScreen.BODYFACTORY.createBody(new Vector2(5,5), BodyType.DynamicBody).
+				createFixture(GameScreen.BODYFACTORY.createPolyShape((30/32f)/2f, (62/32f)/2f),0.5f,.5f,0)
+				.build(world);
+		body.setFixedRotation(true);
+		sprite.setPosition(body.getPosition());
+		sprite.setOrigin(new  Vector2(32,32));
+		
+		System.out.println(body.getPosition());
+		
 	}
 
 	@Override
 	public void update(float delta) {
 		changeAnimation(delta);
 		movement();
-		changePosition(delta);
+	//	changePosition(delta);
+	
+		sprite.setPosition(body.getPosition());
+		sprite.setRotation(body.getAngle()*MathUtils.radiansToDegrees);
 		
 		if (Gdx.input.isKeyPressed(Keys.R)) {
-			sprite.setPosition(new Vector2(320,100));
+			sprite.setPosition(new Vector2(120,100));
 		}
 	
 		
@@ -68,24 +86,19 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	private void movement() {
 		
-		
-		if (checkCollision(SimpleInput.RIGHT,0) && !(SimpleInput.UP ||SimpleInput.DOWN)) {
-			sprite.setVelX(3);
+		if (SimpleInput.UP) {
+			body.setLinearVelocity(0, 3);
 		}else {
-			sprite.setVelX(0);
+			body.setLinearVelocity(0, 0);
 		}
-		if (checkCollision(SimpleInput.LEFT,1) && !(SimpleInput.UP||SimpleInput.DOWN)) {
-			sprite.setVelX(-3);
+		if (SimpleInput.DOWN){
+			body.setLinearVelocity(0, -3);
 		}
-		if (checkCollision(SimpleInput.UP,2) && !(SimpleInput.RIGHT||SimpleInput.LEFT)) {
-			sprite.setVelY(3);
-		}else {
-			sprite.setVelY(0);
+		if (SimpleInput.RIGHT) {
+			body.setLinearVelocity(3, 0);
 		}
-		if (checkCollision(SimpleInput.DOWN,3)&& !(SimpleInput.RIGHT||SimpleInput.LEFT)) {
-			sprite.setVelY(-3);
-		}else if (!SimpleInput.UP){
-			sprite.setVelY(0);
+		if (SimpleInput.LEFT){
+			body.setLinearVelocity(-3, 0);
 		}
 		
 		
@@ -131,7 +144,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 					
 					return true;
 				}else {
-					sprite.setPosition(sprite.getX(), sprite.getY()+4);
+
 					return false;
 				}	
 					
@@ -171,29 +184,8 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		sprite.drawAnimation(batch);
-		batch.end();
-		
-		s.begin(ShapeType.Line);
-			s.rect(sprite.getX(), sprite.getY(), 64, 64);
-			/*s.circle(sprite.getX()+32, sprite.getY()+32, 2);
-			
-			s.circle(sprite.getX()+64, sprite.getY()+32, 2);
-			s.circle(sprite.getX(), sprite.getY()+32, 2);
-			s.circle(sprite.getX()+64, sprite.getY(), 2);
-			s.circle(sprite.getX(), sprite.getY(), 2);
-			
-			
-			/*s.circle(sprite.getX(), sprite.getY(), 2);
-			/*s.circle(sprite.getX()+64, sprite.getY()+64, 2);
-			
-			
-			
-			/*s.circle(sprite.getX(), sprite.getY()+64, 2);
-			s.circle(sprite.getX()+64, sprite.getY(), 2);*/
-		s.end();
-		
-		batch.begin();
+		sprite.drawAnimation(batch,32);
+
 
 	}
 

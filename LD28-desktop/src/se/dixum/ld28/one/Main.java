@@ -10,8 +10,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "One Day - Payback";
 		cfg.useGL20 = true;
-		cfg.width = SimpleSettings.GWIDTH;
-		cfg.height = SimpleSettings.GHEIGHT;
+		cfg.width = 1280;
+		cfg.height =768;
 		new LwjglApplication(new GameStarter(), cfg);
 	}
 }

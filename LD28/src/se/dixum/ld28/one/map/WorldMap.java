@@ -4,10 +4,12 @@ import se.dixum.simple.gfx.SimpleTileMap;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public class World {
+public class WorldMap {
 	private SimpleTileMap map;
-	
-	public World(String filepath) {
+	public SimpleTileMap getMap() {
+		return map;
+	}
+	public WorldMap(String filepath) {
 		map = new SimpleTileMap(filepath, 1);
 	}
 	
