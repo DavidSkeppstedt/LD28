@@ -42,10 +42,21 @@ public class Conversation {
 			System.out.println("No file");
 		}
 	}
-	public void printConversation(){
-		for(int i = 0; i  < value.size;i++){
-			System.out.println(persons.get(i) +":" +value.get(i));
-			System.out.println("-------");
+	public Array<Array<String>> getConversationArray(){
+		Array<Array<String>> arr = new Array<Array<String>>();
+		arr.add(persons);
+		arr.add(value);
+		return arr;
+	}
+	public String printConversation(){
+		String conversation = ""; 
+		for(int i = 0; i < persons.size;i++){
+			conversation += persons.get(i) + ":\n\t"+ value.get(1)+"\n";   
 		}
+		return conversation;
+		
+	}
+	public String printConversation(int index){
+		return persons.get(index) + ":\n\t"+ value.get(index)+"\n";
 	}
 }

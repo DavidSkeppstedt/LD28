@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
 public class GameScreen extends SimpleScreen {
@@ -32,14 +33,26 @@ public class GameScreen extends SimpleScreen {
 	@Override
 	public void init() {
 		
-	camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
-	camera.setToOrtho(false);
-	batch = new SpriteBatch();
-	font = new BitmapFont();
-	gameTimer = new GameTimer(86400,600);
-	conversation = new Conversation("test.txt");
-	conversation.printConversation();
+		camera = new OrthographicCamera(SimpleSettings.GWIDTH,SimpleSettings.GHEIGHT);
+		camera.setToOrtho(false);
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		gameTimer = new GameTimer(86400,600);
+		conversation = new Conversation("test.txt");
 		
+		
+		System.out.print(conversation.printConversation());
+		System.out.println("--------------------");
+		System.out.print(conversation.printConversation(0));
+		System.out.println("--------------------");
+		Array<Array<String>> arr = conversation.getConversationArray();
+
+		for(int i = 0;i < arr.get(0).size;i++) {
+			System.out.print(
+					arr.get(0).get(i)+":\n\t"+
+					arr.get(1).get(i)+"\n"
+					);
+		}
 	}
 
 	@Override
