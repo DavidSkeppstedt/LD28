@@ -2,6 +2,7 @@ package se.dixum.ld28.one.screens;
 
 
 import se.dixum.ld28.one.entities.Dialog;
+import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.map.WorldMap;
 import se.dixum.simple.gfx.SimpleGL;
@@ -41,6 +42,7 @@ public class GameScreen extends SimpleScreen {
 	private Box2DDebugRenderer physRenderer;
 	private GameTimer gameTimer;
 	private BitmapFont font;
+	private Mobster mobster;
 	
 	private Dialog test;
 	
@@ -73,15 +75,18 @@ public class GameScreen extends SimpleScreen {
 	
 		
 		test = new Dialog("test.txt");
-
+		
+		mobster = new Mobster(player);
 	}
 
 	@Override
 	public void update(float delta) {
-	
+		
+		
 		player.update(delta);
 		world.step(delta, 6, 3);
-
+		mobster.update(delta);
+		
 		gameTimer.checkTimer();
 		
 		test.update(delta);
@@ -98,6 +103,7 @@ public class GameScreen extends SimpleScreen {
 		batch.begin();
 			//Render stuff
 			player.draw(batch);
+			mobster.draw(batch);
 			
 			test.draw(batch);
 	
