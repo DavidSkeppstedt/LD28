@@ -9,10 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "One Day - Payback";
-		cfg.useGL20 = false;
+		cfg.useGL20 = true;
 		cfg.width = SimpleSettings.GWIDTH;
 		cfg.height = SimpleSettings.GHEIGHT;
-		
 		new LwjglApplication(new GameStarter(), cfg);
 	}
 }
