@@ -13,7 +13,7 @@ public class GameStarter extends Game {
 	@Override
 	public void create() {
 		
-		GAME_TIMER = new GameTimer(86400, 600);
+		GAME_TIMER = new GameTimer(86400, 300);
 		
 		setScreen(new GameScreen(this));
 	

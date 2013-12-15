@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class Player extends SimpleEntity implements SimpleBaseEntity {
 
@@ -32,6 +33,8 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private World world;
 	private Rectangle pRect;
 
+	
+	private Array<Bullet> bullets;
 	
 	private boolean metMobbster;
 	private boolean freezPlayer; 
@@ -66,13 +69,14 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	
 	@Override
 	public void init() {
+		bullets = new Array<Bullet>();
 		pRect = new Rectangle();
 		metMobbster = false; 
 		freezPlayer = false;
 		if (ScreenSettings.level != 0) {
 			metMobbster = true;
 		}
-		System.out.println(ScreenSettings.level);
+	
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player_final.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
@@ -109,6 +113,29 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		dialog2.update(delta);
 		dialog3.update(delta);
 		
+		int r = 0;
+		switch (getAngle()){
+		case DOWN:
+			r = 3;
+			break;
+		case LEFT:
+			r = 2;
+			break;
+		case RIGHT:
+			r=4;
+			break;
+		case UP:
+			r = 1;
+			break;
+		default:
+			break;
+		
+		}
+		
+		bullets.add(new Bullet(this, r));
+		
+		
+		System.out.println(bullets.size);
 		
 		changeAnimation(delta);
 	
@@ -129,7 +156,14 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			
 
 		}
+
 		
+		for(Bullet b:bullets){
+			if(b.isOutOfMap()){
+				bullets.removeValue(b, false);
+			}
+			b.update(delta);
+		}
 	}
 	
 	private void movement() {
@@ -212,6 +246,9 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		dialog2.draw(batch);
 		dialog3.draw(batch);
 
+		for(Bullet b:bullets){
+			b.draw(batch);
+		}
 	}
 	public void setFreezPlayer(boolean freez){
 		this.freezPlayer = freez; 
