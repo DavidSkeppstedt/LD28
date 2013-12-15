@@ -92,6 +92,10 @@ public class Police implements SimpleBaseEntity{
 				//Player hit!
 				if (!b.isDead()){
 					hitpoints-=25;
+					if (state!=State.TAUNTED) {
+						state = State.TAUNTED;
+					}
+					
 					b.setDead(true);
 				}
 			}
