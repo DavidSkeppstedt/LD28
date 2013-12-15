@@ -10,6 +10,8 @@ import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -48,6 +50,8 @@ public class TownScreen extends SimpleScreen {
 		
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/30f);
 		gf = new GrannyFactory();
+		
+		
 	}
 
 	@Override
@@ -58,11 +62,17 @@ public class TownScreen extends SimpleScreen {
 		GameScreen.MONEYFACTORY.update(delta);
 		hud.update(delta);
 		
+
 		
 		if (ScreenSettings.moneyAccount >= 0) {
 			getGame().setScreen(new BankScreen(getGame()));
 		}
 		
+
+		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
+			getGame().setScreen(new HouseScreen2(getGame()));
+		}
+
 	}
 
 	@Override
