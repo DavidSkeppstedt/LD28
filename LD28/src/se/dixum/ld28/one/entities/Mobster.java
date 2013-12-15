@@ -18,6 +18,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 	private boolean walk;
 	
 	private Player player;
+
 	private Dialog dialog;
 	
 	public Mobster(Player player, Dialog dialog){
@@ -25,7 +26,10 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		this.dialog = dialog;
 		init();
 	}
-	
+	public Mobster(Player player){
+		this.player = player;
+		init();
+	}
 	@Override
 	public void init() {
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/mobster/mobster.png")),

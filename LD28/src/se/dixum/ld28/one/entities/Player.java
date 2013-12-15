@@ -79,11 +79,14 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		stand_r = sprite.createAnimation(0, 1, 0);
 		stand_l = sprite.createAnimation(3, 4, 0);
 		stand_u = sprite.createAnimation(6, 7, 0);
-		stand_d= sprite.createAnimation(9, 10, 0);
-	
+		stand_d= sprite.createAnimation(9, 10, 0);		
+		 
 		sprite.setPosition(new Vector2(100,100));
+	
+		
 		sprite.setCurrentAnimation(right);
-		sprite.setScale(new Vector2(2,2));
+		sprite.setScale(new Vector2(2,2)); 
+		
 		
 	
 		body = GameScreen.BODYFACTORY.createBody(new Vector2(5,15), BodyType.DynamicBody).
@@ -92,13 +95,16 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		body.setFixedRotation(true);
 		sprite.setPosition(body.getPosition());
 		sprite.setOrigin(new  Vector2(32,32));
-		
-		
+
 		 
 	}
 
 	@Override
 	public void update(float delta) {
+		
+		
+		
+		
 		changeAnimation(delta);
 	
 		movement();
