@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
@@ -62,8 +63,16 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		if(player.getFreezPlayer()){
 			firstWalk = true;
 		}
+		
+		
 		if(ScreenSettings.level == 2){
-			walkBack();
+			
+			if(100>Math.hypot(sprite.getX()-player.getBody().getPosition().x*32, sprite.getY()-player.getBody().getPosition().y*32)){
+				System.out.println("jaaaaaaaaaaaaaaaaaaaa");
+			}
+			if(false){
+				walkBack();
+			}
 		}
 		
 		sprite.setX(sprite.getX()+sprite.getVelX());
@@ -101,7 +110,6 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		
 	}
 	private void walkBack(){
-		System.out.println(sprite.getX()+" "+sprite.getY());
 		
 		if(sprite.getY() > 510&&sprite.getX()<=385){
 			sprite.setVelocity(speed,0);
@@ -114,7 +122,6 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		}else if(sprite.getY()<= 160&&sprite.getX()>=-50){
 			sprite.setVelocity(-1*speed, 0);
 		}else{
-			System.out.println("dffffff");
 			sprite.setVelocity(0,0);
 		}
 		
