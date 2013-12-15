@@ -3,6 +3,7 @@ package se.dixum.ld28.one.screens;
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.GrannyFactory;
+import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
@@ -23,6 +24,7 @@ public class TownScreen extends SimpleScreen {
 	private Player player;
 	private SimpleTileMap map;
 	private GrannyFactory gf;
+	private Hud hud;
 
 	public TownScreen(Game game) {
 		super(game);
@@ -36,6 +38,7 @@ public class TownScreen extends SimpleScreen {
 		camera = new OrthographicCamera(1280, 768);
 		camera.setToOrtho(false);
 		batch = GameScreen.BATCH;
+		hud = GameScreen.HUD;
 		
 		map = new SimpleTileMap("gfx/world/map/town/tiletown.tmx", 1);
 		
@@ -53,6 +56,7 @@ public class TownScreen extends SimpleScreen {
 		GameScreen.WORLD.step(delta, 6, 3);
 		gf.update(delta);
 		GameScreen.MONEYFACTORY.update(delta);
+		hud.update(delta);
 	}
 
 	@Override
@@ -66,6 +70,8 @@ public class TownScreen extends SimpleScreen {
 			gf.draw(batch);
 			GameScreen.MONEYFACTORY.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
+			hud.draw(batch);
+
 			
 		batch.end();
 		
