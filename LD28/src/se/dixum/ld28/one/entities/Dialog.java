@@ -68,8 +68,9 @@ public class Dialog implements SimpleBaseEntity{
 				talked = true; 
 				GameStarter.GAME_TIMER.startTimer();
 				GameScreen.PLAYER.setFreezPlayer(false);
-				ScreenSettings.moneyAccount -= 1000;
-	
+				if(ScreenSettings.level == 0){
+					ScreenSettings.moneyAccount -= 1000;
+				}
 			}else{
 				currentDialog = conversations.get(1).get(speekIndex);
 				currentSpeecher = conversations.get(0).get(speekIndex);
@@ -92,6 +93,9 @@ public class Dialog implements SimpleBaseEntity{
 	}
 	public void startDialog(){
 		talk = true;
+	}
+	public boolean getTalked(){
+		return talked;
 	}
 
 }

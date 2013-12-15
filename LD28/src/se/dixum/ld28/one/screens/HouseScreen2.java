@@ -26,6 +26,7 @@ public class HouseScreen2 extends SimpleScreen{
 	private Rectangle door;
 	private boolean  shouldRobBank = false;
 	
+	
 	public HouseScreen2(Game game) {
 		super(game);
 		
@@ -52,7 +53,7 @@ public class HouseScreen2 extends SimpleScreen{
 		GameScreen.WORLD.step(delta, 6, 3);
 		mobster.update(delta);
 		hud.update(delta);
-		
+
 		if (shouldRobBank) {
 			if (player.getRect().overlaps(door)){
 				getGame().setScreen(new BankScreen(getGame()));
@@ -61,7 +62,7 @@ public class HouseScreen2 extends SimpleScreen{
 		}
 		
 		
-		
+
 		
 	}
 	@Override
@@ -76,7 +77,9 @@ public class HouseScreen2 extends SimpleScreen{
 			mobster.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
+			
 		batch.end();
 	}
+
 
 }

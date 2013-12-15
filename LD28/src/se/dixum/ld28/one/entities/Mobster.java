@@ -52,6 +52,8 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		
 		firstWalk = false;
 		secondWalk = false;
+		
+		
 	}
 
 	@Override
@@ -70,8 +72,10 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		if(ScreenSettings.level == 2){
 			
 			if(100>Math.hypot(sprite.getX()-player.getBody().getPosition().x*32, sprite.getY()-player.getBody().getPosition().y*32)){
-			
-				secondWalk = true;
+				player.getDialog2().startDialog();
+				if(player.getDialog2().getTalked()){
+					secondWalk = true;
+				}
 			}
 			if(secondWalk){
 				walkBack();
@@ -127,6 +131,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 			sprite.setVelocity(-1*speed, 0);
 		}else{
 			secondWalk = false;
+			player.getDialog3().startDialog();
 			sprite.setVelocity(0,0);
 		}
 		
