@@ -28,7 +28,7 @@ public class BankScreen extends SimpleScreen {
 
 	@Override
 	public void init() {
-		ScreenSettings.level = 1;
+		ScreenSettings.level = 3;
 		camera = new OrthographicCamera(1280, 768);
 		camera.setToOrtho(false);
 		batch = GameScreen.BATCH;
