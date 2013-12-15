@@ -1,5 +1,7 @@
 package se.dixum.ld28.one.entities;
 
+import java.util.ArrayList;
+
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.entities.base.Angle;
@@ -191,6 +193,28 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 		
 	}
+	
+	public void checkIfHit(Array<Bullet> blist) {
+		
+		for (Bullet b: blist) {
+			if (getRect().overlaps(b.getRectangle())) {
+				//Player hit!
+				if (!b.isDead()){
+				ScreenSettings.helth -=17;
+					b.setDead(true);
+				}
+			}
+			
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
 
 	private void changeAnimation(float delta ) {
 		sprite.updateAnimation(delta);

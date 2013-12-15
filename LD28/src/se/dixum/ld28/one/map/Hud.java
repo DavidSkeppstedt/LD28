@@ -1,26 +1,23 @@
 package se.dixum.ld28.one.map;
 
-import java.util.Vector;
+import se.dixum.ld28.one.GameStarter;
+import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.ld28.one.screens.TownScreen;
+import se.dixum.ld28.one.util.ScreenSettings;
+import se.dixum.simple.entities.base.SimpleBaseEntity;
+import se.dixum.simple.gfx.SimpleAnimated;
+import se.dixum.simple.gfx.SimpleSprite;
 
-import javax.xml.bind.ParseConversionEvent;
-
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
-import se.dixum.ld28.one.util.ScreenSettings;
-import se.dixum.simple.entities.base.SimpleBaseEntity;
-import se.dixum.simple.entities.base.SimpleEntity;
-import se.dixum.simple.gfx.SimpleAnimated;
-import se.dixum.simple.gfx.SimpleSprite;
-import sun.org.mozilla.javascript.internal.ast.DoLoop;
 
 public class Hud implements SimpleBaseEntity{
 
@@ -30,8 +27,10 @@ public class Hud implements SimpleBaseEntity{
 	private SimpleSprite hud;
 	private Animation heart, brokenHeart, noHeart;
 	private Array<SimpleAnimated> sprite;
+	Game game;
 	
-	public Hud(){
+	public Hud(Game game){
+		this.game = game;
 		init();
 	}
 	
@@ -61,13 +60,22 @@ public class Hud implements SimpleBaseEntity{
 	}
 	@Override
 	public void update(float delta) {
+		
+		
+		if (ScreenSettings.helth <=0) {
+			game.setScreen(new TownScreen(game));
+			ScreenSettings.helth = 100;
+			GameStarter.GAME_TIMER.subtractTime(4*3600*1000);
+		}
+		
+		
 		if(ScreenSettings.moneyAccount < 0){
 			color = Color.RED;
 		}else{
 			color = Color.BLACK;
 		}
 		money = ""+ScreenSettings.moneyAccount+" $";
-			if(ScreenSettings.helth == 0){
+			if(ScreenSettings.helth <= 0){
 				sprite.get(0).setCurrentAnimation(noHeart);
 				sprite.get(1).setCurrentAnimation(noHeart);
 				sprite.get(2).setCurrentAnimation(noHeart);

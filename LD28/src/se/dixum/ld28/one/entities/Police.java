@@ -80,6 +80,7 @@ public class Police implements SimpleBaseEntity{
 	@Override
 	public void update(float delta) {
 		if (!dead){
+		GameScreen.PLAYER.checkIfHit(bulletList);	
 		sprite.updateAnimation(delta);
 		checkBehavioure();
 		updateAnimation();
@@ -106,6 +107,7 @@ public class Police implements SimpleBaseEntity{
 		
 		for (Bullet b: bulletList) {
 			b.update(delta);
+			
 		}
 		
 		

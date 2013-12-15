@@ -1,15 +1,14 @@
 package se.dixum.ld28.one.entities;
 
+import se.dixum.simple.entities.base.SimpleBaseEntity;
+import se.dixum.simple.gfx.SimpleAnimated;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntIntMap;
-
-import se.dixum.simple.entities.base.SimpleBaseEntity;
-import se.dixum.simple.gfx.SimpleAnimated;
 
 public class Bullet implements SimpleBaseEntity{
 
@@ -18,6 +17,8 @@ public class Bullet implements SimpleBaseEntity{
 	private Player player;
 	private Vector2 startPosition;
 	private float speed; 
+	private Rectangle rectangle;
+	private boolean dead = false;
 	
 	/**
 	 * 
@@ -121,18 +122,32 @@ public class Bullet implements SimpleBaseEntity{
 		}else {
 			sprite.setCurrentAnimation(bulletRight);
 		}
+		
+		
+		rectangle = new Rectangle(sprite.getX(),sprite.getY(),sprite.getFrameWidth(),sprite.getFrameHeight());
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
 	public void update(float delta){
-		sprite.updateAnimation(delta);
-		sprite.setPosition(sprite.getPosition().x+sprite.getVelX(), sprite.getPosition().y+sprite.getVelY());
+		if (!dead){
+			sprite.updateAnimation(delta);
+			sprite.setPosition(sprite.getPosition().x+sprite.getVelX(), sprite.getPosition().y+sprite.getVelY());
+			rectangle.setPosition(sprite.getX(),sprite.getY());
+		}
 	}
 
 	@Override
 	public void draw(SpriteBatch batch) {
+		if (!dead){
 		sprite.drawAnimation(batch);
-		
+		}
 	}
 	public boolean isOutOfMap(){
 		if(sprite.getPosition().x > 1300||sprite.getPosition().x < -10){
@@ -142,6 +157,22 @@ public class Bullet implements SimpleBaseEntity{
 		}else{
 			return false;
 		}
+	}
+
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
+
+	public void setRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 
 }

@@ -59,7 +59,7 @@ public class GameScreen extends SimpleScreen {
 		FONT = new BitmapFont();
 		BODYFACTORY = new SimpleBodyFactory();
 		WORLD = new World(new Vector2(0,0),true);
-		HUD = new Hud();
+		HUD = new Hud(getGame());
 		
 		PLAYER = new Player(WORLD);
 		MONEYFACTORY = new MoneyFactory();
