@@ -1,9 +1,15 @@
-[N1]
-Bacon ipsum dolor sit amet filet mignon pork loin beef ribs, ball tip shoulder brisket tenderloin sausage shank drumstick t-bone chicken pastrami. Hamburger frankfurter kevin biltong boudin andouille beef ribs. Hamburger rump beef ribs pork loin sha
+[Mobster]
+You own me lots of money! Where are my money prick!
 *
-[N2]
-ck ham. Swine ham pork belly hamburger, pork capicola drumstick andouille ball tip kevin jerky beef. Chicken rump boudin, bresaola jowl ham pig venison ribeye leberka
+[You]
+Oh.. hey. The thing is... I have... no... I just need...
 *
-[N3]
- Swine ham pork belly hamburger, pork capicola drumstick andouille ball tip kevin jerky beef. Chicken rump boudin, bresaola jowl ham pig venison ribeye leberka
+[Mobster]
+STOP THERE! You only get ONE day to get me the money or  I will KILL you and you family. 
+*
+[You]
+But how should I be able to get that kind of money, in just ONE day? Should I go and scare old ladies?
+*
+[Mobster]
+I do not care how you get the money, I only care about WHEN YOU GIVE THEM TO ME!
 *

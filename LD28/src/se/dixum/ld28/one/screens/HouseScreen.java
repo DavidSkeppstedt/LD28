@@ -48,7 +48,7 @@ public class HouseScreen extends SimpleScreen {
 		camera.setToOrtho(false);
 		map = new SimpleTileMap("gfx/world/map/home/home2.tmx",1);
 		SimpleTileMap.parseTileMap(map, "collision", GameScreen.WORLD, 1/32f);
-		dialog = new Dialog("dialog/dialogBeginning.txt");
+		dialog = new Dialog("dialogs/dialogBeginning.txt");
 		mobster = new Mobster(player, dialog);
 		hud = GameScreen.HUD;
 		

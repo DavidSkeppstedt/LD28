@@ -1,0 +1,15 @@
+[Mobster]
+ I see you managed to get the money after all!
+*
+[You]
+Yes, now we are even!
+*
+[Mobster]
+Haha! Not by a long shot. You still owe me 20 thousand in interest rate, you fool.
+*
+[You]
+But but....
+*
+[Mobster]
+I will come back when the time is up. Tick tack...
+*
