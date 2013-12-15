@@ -6,10 +6,13 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
+import se.dixum.ld28.one.entities.Police;
 import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.ld28.one.util.GameTimer;
@@ -28,6 +31,7 @@ public class HouseScreen extends SimpleScreen {
 	private Hud hud;
 	private Rectangle door;
 	
+	private Police police;
 	
 	
 	public HouseScreen(Game game) {
@@ -49,7 +53,7 @@ public class HouseScreen extends SimpleScreen {
 		hud = GameScreen.HUD;
 		
 		door = new Rectangle(0, 96, 64, 64);
-		
+		police = new Police(new Vector2(320,320));
 		
 	}
 
@@ -71,7 +75,8 @@ public class HouseScreen extends SimpleScreen {
 			getGame().setScreen(new TownScreen(getGame()));
 			
 		}
-
+		
+		police.update(delta);
 	}
 
 	@Override
@@ -84,6 +89,7 @@ public class HouseScreen extends SimpleScreen {
 		batch.begin();
 			player.draw(batch);
 			mobster.draw(batch);
+			police.draw(batch);
 			dialog.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
