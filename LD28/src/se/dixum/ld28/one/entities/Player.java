@@ -70,16 +70,16 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			metMobbster = true;
 		}
 		System.out.println(ScreenSettings.level);
-		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player.png")),
+		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player_final.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
-		left = sprite.createAnimation(0, 3, 1);
-		up = sprite.createAnimation(0, 3, 2);
-		down = sprite.createAnimation(0, 3, 3);
+		left = sprite.createAnimation(3, 6, 0);
+		up = sprite.createAnimation(6, 9, 0);
+		down = sprite.createAnimation(9, 12, 0);
 		stand_r = sprite.createAnimation(0, 1, 0);
-		stand_l = sprite.createAnimation(2, 3, 1);
-		stand_u = sprite.createAnimation(0, 1, 2);
-		stand_d= sprite.createAnimation(0, 1, 3);
+		stand_l = sprite.createAnimation(3, 4, 0);
+		stand_u = sprite.createAnimation(6, 7, 0);
+		stand_d= sprite.createAnimation(9, 10, 0);
 	
 		sprite.setPosition(new Vector2(100,100));
 		sprite.setCurrentAnimation(right);
