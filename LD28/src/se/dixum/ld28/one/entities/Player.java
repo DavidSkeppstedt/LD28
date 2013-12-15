@@ -139,8 +139,8 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			
 
 		}
-
-		if(checkTimer()){
+		
+		if(checkTimer()&&Gdx.input.isKeyPressed(Keys.ALT_LEFT)){
 			starTimer();
 			shoot();
 		}
