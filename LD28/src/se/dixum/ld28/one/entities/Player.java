@@ -230,13 +230,15 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
+		for(Bullet b:bullets){
+			b.draw(batch);
+		}
+		
 		sprite.drawAnimation(batch,32);
 		dialog2.draw(batch);
 		dialog3.draw(batch);
 
-		for(Bullet b:bullets){
-			b.draw(batch);
-		}
+		
 	}
 	public void setFreezPlayer(boolean freez){
 		this.freezPlayer = freez; 
@@ -275,7 +277,6 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 	private boolean checkTimer(){
 		if(endTime <= TimeUtils.millis()){
-			System.out.println("1");
 			endTime = 0;
 			timerOn = false;
 			return true;
@@ -285,7 +286,6 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	}
 	private void starTimer(){
 		if(!timerOn){
-			System.out.println("2");
 			endTime = TimeUtils.millis()+sleepTime;
 			timerOn = true; 
 		}
