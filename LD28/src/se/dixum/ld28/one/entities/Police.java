@@ -1,10 +1,10 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.gfx.SimpleTileMap;
-import se.dixum.simple.utils.SimpleInput;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -32,7 +32,16 @@ public class Police implements SimpleBaseEntity{
 	private boolean xFound = false;
 	private boolean yFound = false;
 
+	private SimpleSound sound;
 	
+	private float shootcounter = 0;
+	private float shoottimer = 1.5f;
+	
+	private int hitpoints = 100;
+	private boolean canAttack = true;
+	private float attackcount = 0,attacktimer= 1;
+	
+	private boolean dead = false;
 	public Police(Vector2 pos,SimpleTileMap map) {
 		this.pos = pos;
 		this.map = map;
@@ -54,14 +63,39 @@ public class Police implements SimpleBaseEntity{
 		
 		sprite.setVelY(speed_pat);
 		
+		sound = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/police/fire.ogg")));
+		
+		
 		
 	}
 
 	@Override
 	public void update(float delta) {
+		if (!dead){
 		sprite.updateAnimation(delta);
 		checkBehavioure();
 		updateAnimation();
+		
+		
+		if (!canAttack) {
+			if (attackcount > attacktimer) {
+				canAttack = true;
+				attackcount = 0;
+			}else {
+				attackcount +=Gdx.graphics.getDeltaTime();
+			}
+			
+			
+			
+		}
+		
+			if (hitpoints <=0) {
+				dead = true;
+			}
+		
+		}
+		
+		System.out.println(hitpoints);
 		
 	}
 	
@@ -79,7 +113,11 @@ public class Police implements SimpleBaseEntity{
 		
 		if (getDisToPlayer() < 500) {
 			if (Gdx.input.isKeyPressed(Keys.ALT_LEFT)){
-				state = State.TAUNTED;
+				if (xFound && yFound && canAttack) {
+					hitpoints -=25; 
+					canAttack = false;
+				}
+				
 			}
 		}
 		
@@ -218,6 +256,17 @@ public class Police implements SimpleBaseEntity{
 	
 	private void shoot() {
 		//Add code for shooting here
+		//Play sound
+		//timmer varje 1.5 sec
+		
+		if (shootcounter > shoottimer) {
+			sound.play();
+			shootcounter = 0;
+		}else {
+			shootcounter +=Gdx.graphics.getDeltaTime();
+		}
+		
+		
 		
 		
 		
@@ -320,6 +369,7 @@ public class Police implements SimpleBaseEntity{
 
 	@Override
 	public void draw(SpriteBatch batch) {
+		if (!dead)
 		sprite.drawAnimation(batch);
 		
 	}
