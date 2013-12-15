@@ -1,9 +1,13 @@
 package se.dixum.ld28.one.entities;
 
+import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
+import se.dixum.simple.gfx.SimpleTileMap;
+import se.dixum.simple.utils.SimpleInput;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,10 +26,16 @@ public class Police implements SimpleBaseEntity{
 	
 	private float counter = 0;
 	private float timer = 1f;
+	private SimpleTileMap map;
 	
 	
-	public Police(Vector2 pos) {
+	private boolean xFound = false;
+	private boolean yFound = false;
+
+	
+	public Police(Vector2 pos,SimpleTileMap map) {
 		this.pos = pos;
+		this.map = map;
 		init();
 	}
 	
@@ -63,8 +73,44 @@ public class Police implements SimpleBaseEntity{
 		case TAUNTED:
 			taunted();
 			break;
-		}	
+		}
+		
+		
+		
+		if (getDisToPlayer() < 500) {
+			if (Gdx.input.isKeyPressed(Keys.ALT_LEFT)){
+				state = State.TAUNTED;
+			}
+		}
+		
+		
+		
+		
+		
+		
 	}
+	
+	private float getDisToPlayer()  {
+		float x,y,xx,yy,dx,dy,d;
+		x = GameScreen.PLAYER.getBody().getPosition().x *32;
+		y = GameScreen.PLAYER.getBody().getPosition().y *32;
+		
+		xx = sprite.getX();
+		yy = sprite.getY();
+		
+		dx = Math.abs(x-xx);
+		dy = Math.abs(yy-y);
+		
+		
+		d = (float) Math.hypot(dx, dy);
+		
+		
+		return d;
+		
+	}
+	
+	
+	
 	
 	private void patroloing(){
 		
@@ -112,11 +158,11 @@ public class Police implements SimpleBaseEntity{
 				}
 				
 				
-				System.out.println("Or her");
+				
 				
 			}else {
 				
-				System.out.println("Here" + sprite.getVelY());
+				
 				if (Math.abs(sprite.getVelX()) > 0) {
 					sprite.setVelY(speed_pat);
 					sprite.setVelX(0);
@@ -143,12 +189,141 @@ public class Police implements SimpleBaseEntity{
 		
 		
 		
-		
+		if (map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 1) {
+			
+			if (Math.abs(sprite.getVelX()) > 0 ) {
+				sprite.setVelX(sprite.getVelX()*-1);
+			}
+			if (Math.abs(sprite.getVelY()) > 0 ) {
+				sprite.setVelY(sprite.getVelY()*-1);
+			}
+			
+			
+			
+			
+			
+		}
 		
 		
 	}
 	
 	private void taunted() {
+		sprite.setPosition(sprite.getX()+sprite.getVelX(),sprite.getY()+sprite.getVelY());
+		
+		//Find player
+		float px = GameScreen.PLAYER.getBody().getPosition().x *32;
+		float py = GameScreen.PLAYER.getBody().getPosition().y *32;
+		float dif = 16;
+		float dify = 16;
+		
+		if (sprite.getX() > (px-dif) && sprite.getX() <(px+dif) ) {
+			xFound = true;
+			sprite.setVelX(0);
+		}else {
+			xFound = false;
+		}
+		
+		if (sprite.getY() > (py-dify) && sprite.getY() < (py+dify)) {
+			yFound = true;
+			sprite.setVelY(0);
+		}else {
+			yFound = false;
+		}
+		
+		
+		
+		
+		
+		
+		System.out.println(xFound);
+		// Left
+		if (px < sprite.getX()) {
+			if (!xFound){
+			sprite.setVelX(-speed_tau);
+			sprite.setVelY(0);
+			}
+		}
+		
+		if (px > sprite.getX()) {
+			if (!xFound) {
+				sprite.setVelX(speed_tau);
+				sprite.setVelY(0);
+			}
+		}
+		
+		
+		
+		if (py > sprite.getY()) {
+			
+			if (!yFound && xFound) {
+				sprite.setVelY(speed_tau);
+				sprite.setVelX(0);
+			}
+		}
+		
+		if (py < sprite.getY()) {
+			
+			if (!yFound && xFound) {
+				sprite.setVelY(-speed_tau);
+				sprite.setVelX(0);
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		//Check where player is
+		//left
+			//can move left?
+			//can move up down?
+			//move right
+		//right
+		
+		//down
+		
+		//up
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	

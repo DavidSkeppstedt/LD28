@@ -53,7 +53,7 @@ public class HouseScreen extends SimpleScreen {
 		hud = GameScreen.HUD;
 		
 		door = new Rectangle(0, 96, 64, 64);
-		police = new Police(new Vector2(320,320));
+		police = new Police(new Vector2(364,320),map);
 		
 	}
 
