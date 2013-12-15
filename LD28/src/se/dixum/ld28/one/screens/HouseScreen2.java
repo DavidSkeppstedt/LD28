@@ -25,7 +25,7 @@ public class HouseScreen2 extends SimpleScreen{
 	private Hud hud;
 	private Rectangle door;
 	private boolean  shouldRobBank = false;
-	
+	private boolean moneyget = false;
 	
 	public HouseScreen2(Game game) {
 		super(game);
@@ -54,6 +54,15 @@ public class HouseScreen2 extends SimpleScreen{
 		mobster.update(delta);
 		hud.update(delta);
 
+		if (player.getDialog2().getTalked() && !moneyget){
+			moneyget = true;
+			ScreenSettings.moneyAccount -=20000;
+		}
+		
+		if (player.getDialog3().getTalked()) {
+			shouldRobBank = true;
+		}
+		
 		if (shouldRobBank) {
 			if (player.getRect().overlaps(door)){
 				getGame().setScreen(new BankScreen(getGame()));
