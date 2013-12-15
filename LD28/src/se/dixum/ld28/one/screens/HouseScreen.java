@@ -4,11 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Mobster;
@@ -19,7 +16,6 @@ import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
-import se.dixum.simple.utils.SimpleInput;
 
 public class HouseScreen extends SimpleScreen {
 	

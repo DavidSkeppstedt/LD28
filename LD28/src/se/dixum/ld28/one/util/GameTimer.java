@@ -1,7 +1,5 @@
 package se.dixum.ld28.one.util;
 
-import se.dixum.ld28.one.screens.GameScreen;
-
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
