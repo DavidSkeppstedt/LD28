@@ -39,8 +39,8 @@ public class BankScreen extends SimpleScreen {
 		GameScreen.reInit();
 		player = GameScreen.PLAYER;
 		player.setFreezPlayer(false);
-		
-		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/30f);
+		player.getBody().setTransform(38, 11, 0);
+		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/32f);
 		
 	}
 
@@ -49,6 +49,7 @@ public class BankScreen extends SimpleScreen {
 		player.update(delta);
 		GameScreen.WORLD.step(delta, 6, 3);
 		hud.update(delta);
+		
 		
 	}
 

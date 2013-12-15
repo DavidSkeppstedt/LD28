@@ -1,11 +1,6 @@
 package se.dixum.ld28.one.screens;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import se.dixum.ld28.one.GameStarter;
-import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Mobster;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.map.Hud;
@@ -15,6 +10,11 @@ import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
 public class HouseScreen2 extends SimpleScreen{
 
 	private SpriteBatch batch;;
@@ -23,6 +23,8 @@ public class HouseScreen2 extends SimpleScreen{
 	private Player player;
 	private GameTimer gameTimer; 
 	private Hud hud;
+	private Rectangle door;
+	private boolean  shouldRobBank = false;
 	
 	public HouseScreen2(Game game) {
 		super(game);
@@ -41,7 +43,8 @@ public class HouseScreen2 extends SimpleScreen{
 		mobster = new Mobster(player);
 		hud = GameScreen.HUD;
 		
-		player.getBody().setTransform(1, 5, 0);
+		player.getBody().setTransform(5, 5, 0);
+		door = new Rectangle(0, 96, 64, 64);
 	}
 	@Override
 	public void update(float delta) {
@@ -49,6 +52,16 @@ public class HouseScreen2 extends SimpleScreen{
 		GameScreen.WORLD.step(delta, 6, 3);
 		mobster.update(delta);
 		hud.update(delta);
+		
+		if (shouldRobBank) {
+			if (player.getRect().overlaps(door)){
+				getGame().setScreen(new BankScreen(getGame()));
+				
+			}
+		}
+		
+		
+		
 		
 	}
 	@Override
