@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -76,7 +78,39 @@ public class Police implements SimpleBaseEntity{
 		
 		
 	}
-
+	
+	public Rectangle getRect() {
+		
+		return new Rectangle(sprite.getX(),sprite.getY(),64,64);
+		
+		
+	}
+	
+	public void checkIfhit(Array<Bullet> blist) {
+		for (Bullet b: blist) {
+			if (getRect().overlaps(b.getRectangle())) {
+				//Player hit!
+				if (!b.isDead()){
+					hitpoints-=25;
+					b.setDead(true);
+				}
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 	@Override
 	public void update(float delta) {
 		if (!dead){
@@ -102,6 +136,10 @@ public class Police implements SimpleBaseEntity{
 				dead = true;
 			}
 		
+			
+		checkIfhit(GameScreen.PLAYER.getBullets());	
+			
+			
 		}
 		
 		
@@ -135,15 +173,7 @@ public class Police implements SimpleBaseEntity{
 		
 		
 		
-		if (getDisToPlayer() < 500) {
-			if (Gdx.input.isKeyPressed(Keys.ALT_LEFT)){
-				if (xFound && yFound && canAttack) {
-					hitpoints -=25; 
-					canAttack = false;
-				}
-				
-			}
-		}
+
 		
 		
 		

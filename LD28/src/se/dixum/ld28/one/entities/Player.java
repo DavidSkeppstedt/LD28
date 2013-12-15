@@ -1,7 +1,5 @@
 package se.dixum.ld28.one.entities;
 
-import java.util.ArrayList;
-
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.entities.base.Angle;
@@ -9,13 +7,11 @@ import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.utils.SimpleInput;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -314,5 +310,15 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			endTime = TimeUtils.millis()+sleepTime;
 			timerOn = true; 
 		}
+	}
+
+
+	public Array<Bullet> getBullets() {
+		return bullets;
+	}
+
+
+	public void setBullets(Array<Bullet> bullets) {
+		this.bullets = bullets;
 	}
 }
