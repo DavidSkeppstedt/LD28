@@ -47,7 +47,7 @@ public class TownScreen extends SimpleScreen {
 		GameScreen.reInit();
 		player = GameScreen.PLAYER;
 		player.setFreezPlayer(false);
-		
+		player.getBody().setTransform(2, 11, 0);
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/30f);
 		gf = new GrannyFactory();
 		
@@ -65,10 +65,10 @@ public class TownScreen extends SimpleScreen {
 
 		
 		if (ScreenSettings.moneyAccount >= 0) {
-			getGame().setScreen(new BankScreen(getGame()));
+			getGame().setScreen(new HouseScreen2(getGame()));
 		}
 		
-
+		//For devs only
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			getGame().setScreen(new HouseScreen2(getGame()));
 		}

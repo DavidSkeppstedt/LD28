@@ -6,6 +6,9 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Dialog;
 import se.dixum.ld28.one.entities.Mobster;
@@ -27,6 +30,9 @@ public class HouseScreen extends SimpleScreen {
 	private Dialog dialog;
 	private GameTimer gameTimer; 
 	private Hud hud;
+	private Rectangle door;
+	
+	
 	
 	public HouseScreen(Game game) {
 		super(game);
@@ -42,9 +48,13 @@ public class HouseScreen extends SimpleScreen {
 		camera.setToOrtho(false);
 		map = new SimpleTileMap("gfx/world/map/home/home2.tmx",1);
 		SimpleTileMap.parseTileMap(map, "collision", GameScreen.WORLD, 1/32f);
-		dialog = new Dialog("gfx/world/dialogBeginning.txt");
+		dialog = new Dialog("dialog/dialogBeginning.txt");
 		mobster = new Mobster(player, dialog);
 		hud = GameScreen.HUD;
+		
+		door = new Rectangle(0, 96, 64, 64);
+		
+		
 	}
 
 	@Override
@@ -55,8 +65,15 @@ public class HouseScreen extends SimpleScreen {
 		dialog.update(delta);
 		hud.update(delta);
 		
+		//For dev only
 		if (Gdx.input.isKeyPressed(Keys.NUM_0)) {
 			getGame().setScreen(new TownScreen(getGame()));
+		}
+		
+		
+		if (player.getRect().overlaps(door)) {
+			getGame().setScreen(new TownScreen(getGame()));
+			
 		}
 
 	}

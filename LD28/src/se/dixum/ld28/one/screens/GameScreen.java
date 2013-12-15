@@ -3,6 +3,7 @@ import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.MoneyFactory;
 import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.GameTimer;
+import se.dixum.simple.audio.SimpleMusic;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleSprite;
 import se.dixum.simple.physics.SimpleBodyFactory;
@@ -32,7 +33,7 @@ public class GameScreen extends SimpleScreen {
 	public static SpriteBatch BATCH;
 	public static BitmapFont FONT;
 	public static Hud HUD; 
-	
+	private SimpleMusic music;
 	
 	private SimpleSprite logo;
 	
@@ -65,7 +66,9 @@ public class GameScreen extends SimpleScreen {
 		
 		
 		logo = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/title/title.png"))), new Vector2(320,320));
-		
+		music = new SimpleMusic(Gdx.audio.newMusic(Gdx.files.internal("sound/music/music.ogg")));
+		music.setLooping(true);
+		music.play();
 
 	}
 	public static void reInit() {
@@ -97,6 +100,13 @@ public class GameScreen extends SimpleScreen {
 		BATCH.end();
 		
 		
+		
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		music.dispose();
 		
 	}
 
