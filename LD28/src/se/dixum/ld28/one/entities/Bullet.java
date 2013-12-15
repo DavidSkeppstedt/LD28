@@ -99,5 +99,14 @@ public class Bullet implements SimpleBaseEntity{
 		sprite.drawAnimation(batch);
 		
 	}
+	public boolean isOutOfMap(){
+		if(sprite.getPosition().x > 1300||sprite.getPosition().x < -10){
+			return true;
+		}else if(sprite.getPosition().y > 780||sprite.getPosition().y < -10){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }

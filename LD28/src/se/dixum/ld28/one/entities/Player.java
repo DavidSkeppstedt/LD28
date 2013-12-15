@@ -132,11 +132,10 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 		}
 		
-		
-		
-		
-	
 		bullets.add(new Bullet(this, r));
+		
+		
+		System.out.println(bullets.size);
 		
 		changeAnimation(delta);
 	
@@ -157,9 +156,12 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			
 
 		}
-		System.out.println(ScreenSettings.helth);
+
 		
 		for(Bullet b:bullets){
+			if(b.isOutOfMap()){
+				bullets.removeValue(b, false);
+			}
 			b.update(delta);
 		}
 	}
