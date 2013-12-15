@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.map;
 
 import se.dixum.ld28.one.GameStarter;
+import se.dixum.ld28.one.screens.BankScreen;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.screens.TownScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
@@ -63,9 +64,17 @@ public class Hud implements SimpleBaseEntity{
 		
 		
 		if (ScreenSettings.helth <=0) {
-			game.setScreen(new TownScreen(game));
+		
 			ScreenSettings.helth = 100;
 			GameStarter.GAME_TIMER.subtractTime(4*3600*1000);
+			
+			if (ScreenSettings.level == 2){
+				game.setScreen(new TownScreen(game));
+				}
+				if (ScreenSettings.level == 3){
+					game.setScreen(new BankScreen(game));
+			}
+			
 		}
 		
 		
