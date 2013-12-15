@@ -36,6 +36,9 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private boolean metMobbster;
 	private boolean freezPlayer; 
 	
+	private Dialog dialog2;
+	private Dialog dialog3;
+	
 	public Player(World world) {
 	
 		this.world = world;
@@ -96,13 +99,15 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		sprite.setPosition(body.getPosition());
 		sprite.setOrigin(new  Vector2(32,32));
 
-		 
+		dialog2 = new Dialog("dialogs/dialog2.txt");
+		dialog3 = new Dialog("dialogs/dialog3.txt");
 	}
 
 	@Override
 	public void update(float delta) {
 		
-		
+		dialog2.update(delta);
+		dialog3.update(delta);
 		
 		
 		changeAnimation(delta);
@@ -204,7 +209,8 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	@Override
 	public void draw(SpriteBatch batch) {
 		sprite.drawAnimation(batch,32);
-
+		dialog2.draw(batch);
+		dialog3.draw(batch);
 
 	}
 	public void setFreezPlayer(boolean freez){
@@ -212,6 +218,12 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	}
 	public boolean getFreezPlayer(){
 		return freezPlayer;  
+	}
+	public Dialog getDialog2() {
+		return dialog2;
+	}
+	public Dialog getDialog3() {
+		return dialog3;
 	}
 
 }

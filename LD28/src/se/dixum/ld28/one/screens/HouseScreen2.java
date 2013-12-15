@@ -24,6 +24,7 @@ public class HouseScreen2 extends SimpleScreen{
 	private GameTimer gameTimer; 
 	private Hud hud;
 	
+	
 	public HouseScreen2(Game game) {
 		super(game);
 		
@@ -50,6 +51,7 @@ public class HouseScreen2 extends SimpleScreen{
 		mobster.update(delta);
 		hud.update(delta);
 		
+		
 	}
 	@Override
 	public void draw() {
@@ -63,7 +65,9 @@ public class HouseScreen2 extends SimpleScreen{
 			mobster.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
+			
 		batch.end();
 	}
+
 
 }
