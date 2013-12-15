@@ -14,7 +14,6 @@ public class Bullet implements SimpleBaseEntity{
 
 	private Animation bulletUp, bulletDown, bulletLeft, bulletRight;
 	private SimpleAnimated sprite;
-	private Player player;
 	private Vector2 startPosition;
 	private float speed; 
 	private Rectangle rectangle;
