@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Player extends SimpleEntity implements SimpleBaseEntity {
 
@@ -41,6 +42,11 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	
 	private Dialog dialog2;
 	private Dialog dialog3;
+	
+	
+	private long endTime = 0;
+	private int sleepTime = 1000; 
+	private boolean timerOn = false; 
 	
 	public Player(World world) {
 	
@@ -113,29 +119,6 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		dialog2.update(delta);
 		dialog3.update(delta);
 		
-		int r = 0;
-		switch (getAngle()){
-		case DOWN:
-			r = 3;
-			break;
-		case LEFT:
-			r = 2;
-			break;
-		case RIGHT:
-			r=4;
-			break;
-		case UP:
-			r = 1;
-			break;
-		default:
-			break;
-		
-		}
-		
-		bullets.add(new Bullet(this, r));
-		
-		
-		System.out.println(bullets.size);
 		
 		changeAnimation(delta);
 	
@@ -157,6 +140,11 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 		}
 
+		if(checkTimer()){
+			starTimer();
+			shoot();
+		}
+		
 		
 		for(Bullet b:bullets){
 			if(b.isOutOfMap()){
@@ -262,5 +250,44 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	public Dialog getDialog3() {
 		return dialog3;
 	}
+	public void shoot() {
+		int r = 0;
+		switch (getAngle()){
+		case DOWN:
+			r = 3;
+			break;
+		case LEFT:
+			r = 2;
+			break;
+		case RIGHT:
+			r=4;
+			break;
+		case UP:
+			r = 1;
+			break;
+		default:
+			break;
+		
+		}
+		
+		bullets.add(new Bullet(this, r));
+	}
 
+	private boolean checkTimer(){
+		if(endTime <= TimeUtils.millis()){
+			System.out.println("1");
+			endTime = 0;
+			timerOn = false;
+			return true;
+		}else{
+			return false;
+		}
+	}
+	private void starTimer(){
+		if(!timerOn){
+			System.out.println("2");
+			endTime = TimeUtils.millis()+sleepTime;
+			timerOn = true; 
+		}
+	}
 }
