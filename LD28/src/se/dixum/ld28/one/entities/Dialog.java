@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.Conversation;
+import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.ld28.one.util.Timer;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleSprite;
@@ -67,6 +68,7 @@ public class Dialog implements SimpleBaseEntity{
 				talked = true; 
 				GameStarter.GAME_TIMER.startTimer();
 				GameScreen.PLAYER.setFreezPlayer(false);
+				ScreenSettings.moneyAccount -= 1000;
 	
 			}else{
 				currentDialog = conversations.get(1).get(speekIndex);
