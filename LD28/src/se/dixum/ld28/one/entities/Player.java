@@ -278,26 +278,29 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		return dialog3;
 	}
 	public void shoot() {
-		int r = 0;
-		switch (getAngle()){
-		case DOWN:
-			r = 3;
-			break;
-		case LEFT:
-			r = 2;
-			break;
-		case RIGHT:
-			r=4;
-			break;
-		case UP:
-			r = 1;
-			break;
-		default:
-			break;
-		
+		System.out.println(ScreenSettings.level);
+		if(ScreenSettings.level != 0&&ScreenSettings.level != 2){
+			int r = 0;
+			switch (getAngle()){
+			case DOWN:
+				r = 3;
+				break;
+			case LEFT:
+				r = 2;
+				break;
+			case RIGHT:
+				r=4;
+				break;
+			case UP:
+				r = 1;
+				break;
+			default:
+				break;
+			
+			}
+			
+			bullets.add(new Bullet(new Vector2(getBody().getPosition().x *32,getBody().getPosition().y*32), r));
 		}
-		
-		bullets.add(new Bullet(new Vector2(getBody().getPosition().x *32,getBody().getPosition().y*32), r));
 	}
 
 	private boolean checkTimer(){
