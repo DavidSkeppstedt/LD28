@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
@@ -15,7 +17,8 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 	private SimpleAnimated sprite;
 	private Animation right,left,up,down;
 	private float speed = 5;
-	private boolean walk;
+	private boolean firstWalk;
+	private boolean secondWalk;
 	
 	private Player player;
 
@@ -39,23 +42,40 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		up = sprite.createAnimation(7, 9, 0);
 		down = sprite.createAnimation(10, 12, 0);	
 		
-		sprite.setPosition(new Vector2(-50,120));
+		if(ScreenSettings.level == 2){
+			sprite.setPosition(new Vector2(320,515));
+		}else{
+			sprite.setPosition(new Vector2(-50,120));
+		}
 		sprite.setCurrentAnimation(right);
 		sprite.setScale(new Vector2(2,2));
 		
-		walk = false;
+		firstWalk = false;
+		secondWalk = false;
 	}
 
 	@Override
 	public void update(float delta) {
 		// TODO Auto-generated method stub
 		sprite.updateAnimation(delta);
-		if(walk){
+		if(firstWalk){
 			walkFirstMap();
 		}
 		
 		if(player.getFreezPlayer()){
-			walk = true;
+			firstWalk = true;
+		}
+		
+		
+		if(ScreenSettings.level == 2){
+			
+			if(100>Math.hypot(sprite.getX()-player.getBody().getPosition().x*32, sprite.getY()-player.getBody().getPosition().y*32)){
+			
+				secondWalk = true;
+			}
+			if(secondWalk){
+				walkBack();
+			}
 		}
 		
 		sprite.setX(sprite.getX()+sprite.getVelX());
@@ -88,7 +108,26 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		}else if(sprite.getX() >= 1100){
 			sprite.setVelocity(0, speed);
 		}else{
+		
 			sprite.setVelocity(speed, 0);
+		}
+		
+	}
+	private void walkBack(){
+		
+		if(sprite.getY() > 510&&sprite.getX()<=385){
+			sprite.setVelocity(speed,0);
+		}else if(sprite.getY() >= 387&&sprite.getX()<=400){
+			sprite.setVelocity(0, -1*speed);
+		}else if(sprite.getY()>=380&&sprite.getX()<=1100){
+			sprite.setVelocity(speed, 0);
+		}else if(sprite.getX() >= 1100&&sprite.getY()>=135){
+			sprite.setVelocity(0, -1*speed);
+		}else if(sprite.getY()<= 160&&sprite.getX()>=-50){
+			sprite.setVelocity(-1*speed, 0);
+		}else{
+			secondWalk = false;
+			sprite.setVelocity(0,0);
 		}
 		
 	}
@@ -97,9 +136,6 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		sprite.drawAnimation(batch);
 
 		
-	}
-	public void setWalk(boolean walk){
-		this.walk = walk;
 	}
 
 }
