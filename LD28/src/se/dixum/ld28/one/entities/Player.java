@@ -33,6 +33,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private Rectangle pRect;
 
 	
+	
 	private boolean metMobbster;
 	private boolean freezPlayer; 
 	
@@ -72,7 +73,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		if (ScreenSettings.level != 0) {
 			metMobbster = true;
 		}
-		System.out.println(ScreenSettings.level);
+	
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/player_final.png")),
 				32, 32, 0.24f);
 		right = sprite.createAnimation(0, 3, 0);
@@ -129,6 +130,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			
 
 		}
+		System.out.println(ScreenSettings.helth);
 		
 	}
 	
