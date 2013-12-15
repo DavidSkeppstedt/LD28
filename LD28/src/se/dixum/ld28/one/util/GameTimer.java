@@ -70,7 +70,7 @@ public class GameTimer {
 			minutes = (int)(temp/1000%3600)/60;
 			seconds = (int) (temp/1000%60);
 
-			font.draw(batch, "Time Left: Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds,225,740);
+			font.draw(batch, "Time Left: Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds,225,760);
 
 		}
 	}
