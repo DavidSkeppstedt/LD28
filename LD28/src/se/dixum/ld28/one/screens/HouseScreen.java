@@ -31,7 +31,7 @@ public class HouseScreen extends SimpleScreen {
 	private Hud hud;
 	private Rectangle door;
 	
-	private Police police;
+
 	
 	
 	public HouseScreen(Game game) {
@@ -53,7 +53,7 @@ public class HouseScreen extends SimpleScreen {
 		hud = GameScreen.HUD;
 		
 		door = new Rectangle(0, 96, 64, 64);
-		police = new Police(new Vector2(364,320),map);
+		
 		
 	}
 
@@ -76,7 +76,7 @@ public class HouseScreen extends SimpleScreen {
 			
 		}
 		
-		police.update(delta);
+		
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class HouseScreen extends SimpleScreen {
 		batch.begin();
 			player.draw(batch);
 			mobster.draw(batch);
-			police.draw(batch);
+
 			dialog.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);

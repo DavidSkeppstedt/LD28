@@ -2,17 +2,20 @@ package se.dixum.ld28.one.screens;
 
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Player;
+import se.dixum.ld28.one.entities.Police;
 import se.dixum.ld28.one.factories.GrannyFactory;
 import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class TownScreen extends SimpleScreen {
 	
@@ -22,7 +25,7 @@ public class TownScreen extends SimpleScreen {
 	private SimpleTileMap map;
 	private GrannyFactory gf;
 	private Hud hud;
-
+	private Police police;
 	public TownScreen(Game game) {
 		super(game);
 		
@@ -45,6 +48,7 @@ public class TownScreen extends SimpleScreen {
 		player.getBody().setTransform(2, 11, 0);
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/30f);
 		gf = new GrannyFactory();
+		police = new Police(new Vector2(364,320),map);
 		
 		
 	}
@@ -57,7 +61,9 @@ public class TownScreen extends SimpleScreen {
 		GameScreen.MONEYFACTORY.update(delta);
 		hud.update(delta);
 		
-
+		if (gf.scaredGrannies >=3) {
+			police.setTaunted();
+		}
 		
 		if (ScreenSettings.moneyAccount >= 0) {
 			getGame().setScreen(new HouseScreen2(getGame()));
@@ -67,7 +73,9 @@ public class TownScreen extends SimpleScreen {
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			getGame().setScreen(new HouseScreen2(getGame()));
 		}
+		
 
+		police.update(delta);
 	}
 
 	@Override
@@ -82,7 +90,7 @@ public class TownScreen extends SimpleScreen {
 			GameScreen.MONEYFACTORY.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
-
+			police.draw(batch);
 			
 		batch.end();
 		

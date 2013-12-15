@@ -189,7 +189,7 @@ public class Police implements SimpleBaseEntity{
 		
 		
 		
-		if (map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 1) {
+		if (map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == -1) {
 			
 			if (Math.abs(sprite.getVelX()) > 0 ) {
 				sprite.setVelX(sprite.getVelX()*-1);
@@ -207,14 +207,30 @@ public class Police implements SimpleBaseEntity{
 		
 	}
 	
+	
+	public void setTaunted() {
+		if (state != State.TAUNTED)
+			state = State.TAUNTED;
+		
+		
+		
+	}
+	
+	private void shoot() {
+		//Add code for shooting here
+		
+		
+		
+	}
+	
 	private void taunted() {
 		sprite.setPosition(sprite.getX()+sprite.getVelX(),sprite.getY()+sprite.getVelY());
 		
 		//Find player
 		float px = GameScreen.PLAYER.getBody().getPosition().x *32;
 		float py = GameScreen.PLAYER.getBody().getPosition().y *32;
-		float dif = 16;
-		float dify = 16;
+		float dif = 64;
+		float dify = 64;
 		
 		if (sprite.getX() > (px-dif) && sprite.getX() <(px+dif) ) {
 			xFound = true;
@@ -230,12 +246,12 @@ public class Police implements SimpleBaseEntity{
 			yFound = false;
 		}
 		
+		if (xFound && yFound) {
+			shoot();
+		}
 		
 		
-		
-		
-		
-		System.out.println(xFound);
+
 		// Left
 		if (px < sprite.getX()) {
 			if (!xFound){
@@ -244,6 +260,7 @@ public class Police implements SimpleBaseEntity{
 			}
 		}
 		
+		//Right
 		if (px > sprite.getX()) {
 			if (!xFound) {
 				sprite.setVelX(speed_tau);
@@ -252,7 +269,7 @@ public class Police implements SimpleBaseEntity{
 		}
 		
 		
-		
+		//Up
 		if (py > sprite.getY()) {
 			
 			if (!yFound && xFound) {
@@ -260,7 +277,7 @@ public class Police implements SimpleBaseEntity{
 				sprite.setVelX(0);
 			}
 		}
-		
+		//Down
 		if (py < sprite.getY()) {
 			
 			if (!yFound && xFound) {
@@ -272,55 +289,7 @@ public class Police implements SimpleBaseEntity{
 		}
 		
 		
-		
-		
-		
-		//Check where player is
-		//left
-			//can move left?
-			//can move up down?
-			//move right
-		//right
-		
-		//down
-		
-		//up
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		
 		

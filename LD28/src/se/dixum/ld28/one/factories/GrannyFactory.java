@@ -14,7 +14,7 @@ public class GrannyFactory {
 	private float counter = 0;
 	private int maxNum = 10;
 	
-	
+	public int scaredGrannies = 0;
 	
 	public GrannyFactory() {
 		init();
@@ -47,6 +47,7 @@ public class GrannyFactory {
 		for (int i = grannylist.size-1; i>0; i--) {
 			if (grannylist.get(i).isAfraid()) {
 				grannylist.removeIndex(i);
+				scaredGrannies +=1;
 			}
 		}
 		
