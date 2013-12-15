@@ -45,7 +45,7 @@ public class Dialog implements SimpleBaseEntity{
 		currentDialog = "";
 		currentSpeecher = "";
 			
-		dialogRectangle = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/dialogRectangle.png"))),new Vector2(0, 0));
+		dialogRectangle = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/world/dialogRectangle.png"))),new Vector2(0, 0));
 			
 		keyTimer = new Timer();
 		

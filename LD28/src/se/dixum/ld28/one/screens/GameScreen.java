@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.screens;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.MoneyFactory;
+import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.GameTimer;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleSprite;
@@ -30,6 +31,7 @@ public class GameScreen extends SimpleScreen {
 	public static Player PLAYER;
 	public static SpriteBatch BATCH;
 	public static BitmapFont FONT;
+	public static Hud HUD; 
 	
 	
 	private SimpleSprite logo;
@@ -56,6 +58,7 @@ public class GameScreen extends SimpleScreen {
 		FONT = new BitmapFont();
 		BODYFACTORY = new SimpleBodyFactory();
 		WORLD = new World(new Vector2(0,0),true);
+		HUD = new Hud();
 		
 		PLAYER = new Player(WORLD);
 		MONEYFACTORY = new MoneyFactory();
