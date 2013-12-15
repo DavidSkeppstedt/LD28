@@ -132,10 +132,10 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		
 		}
 		
-		bullets.add(new Bullet(this, r));
+		//bullets.add(new Bullet(new Vector2(getBody().getPosition().x *32,getBody().getPosition().y *32), r));
 		
 		
-		System.out.println(bullets.size);
+		
 		
 		changeAnimation(delta);
 	

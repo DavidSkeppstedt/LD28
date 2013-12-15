@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 public class Police implements SimpleBaseEntity{
 	
@@ -42,6 +43,13 @@ public class Police implements SimpleBaseEntity{
 	private float attackcount = 0,attacktimer= 1;
 	
 	private boolean dead = false;
+	
+	private Array<Bullet> bulletList;
+	
+	
+	
+	
+	
 	public Police(Vector2 pos,SimpleTileMap map) {
 		this.pos = pos;
 		this.map = map;
@@ -64,7 +72,7 @@ public class Police implements SimpleBaseEntity{
 		sprite.setVelY(speed_pat);
 		
 		sound = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/police/fire.ogg")));
-		
+		bulletList = new Array<Bullet>();
 		
 		
 	}
@@ -95,7 +103,21 @@ public class Police implements SimpleBaseEntity{
 		
 		}
 		
-		System.out.println(hitpoints);
+		
+		for (Bullet b: bulletList) {
+			b.update(delta);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
@@ -262,6 +284,16 @@ public class Police implements SimpleBaseEntity{
 		if (shootcounter > shoottimer) {
 			sound.play();
 			shootcounter = 0;
+			Vector2 spos = new Vector2(sprite.getX(),sprite.getY());
+			float dx = GameScreen.PLAYER.getBody().getPosition().x *32 -sprite.getPosition().x;
+			float dy =  GameScreen.PLAYER.getBody().getPosition().y*33-sprite.getPosition().y;
+
+			Vector2 end = new Vector2(dx,dy);
+			System.out.println(end);
+			
+			bulletList.add(new Bullet(spos,end));
+			
+			
 		}else {
 			shootcounter +=Gdx.graphics.getDeltaTime();
 		}
@@ -369,8 +401,12 @@ public class Police implements SimpleBaseEntity{
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		if (!dead)
+		if (!dead){
 		sprite.drawAnimation(batch);
+		for (Bullet b: bulletList) {
+			b.draw(batch);
+		}
+		}
 		
 	}
 

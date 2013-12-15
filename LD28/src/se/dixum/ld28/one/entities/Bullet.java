@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntIntMap;
 
@@ -15,6 +16,7 @@ public class Bullet implements SimpleBaseEntity{
 	private Animation bulletUp, bulletDown, bulletLeft, bulletRight;
 	private SimpleAnimated sprite;
 	private Player player;
+	private Vector2 startPosition;
 	private float speed; 
 	
 	/**
@@ -22,7 +24,7 @@ public class Bullet implements SimpleBaseEntity{
 	 * @param player
 	 * @param dir direction 1 = up 2 = left 3 = down 4 = right
 	 */
-	public Bullet(Player player, int dir){
+	public Bullet(Vector2 startPosition, int dir){
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/bullet.png")), 16, 16, 0);
 		
 		speed = 10;
@@ -52,10 +54,43 @@ public class Bullet implements SimpleBaseEntity{
 		}
 		
 		
-		this.player = player;
+		this.startPosition = startPosition;
 		
 		init();
 	}
+	
+	public Bullet (Vector2 startposition, Vector2 end) {
+		
+		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/bullet.png")), 16, 16, 0);
+		
+		
+		float x = end.x; 
+		float y = end.y;
+		
+		if (x > 0 && y > 0) {
+			sprite.setVelocity(2, 2);
+		}
+		if (x < 0 && y > 0) {
+			sprite.setVelocity(-2, 2);
+		}
+		if (x < 0 && y < 0) {
+			sprite.setVelocity(-2, -2);
+		}
+		if (x > 0 && y < 0) {
+			sprite.setVelocity(2, -2);
+		}
+		
+		
+		this.startPosition = startposition;
+		
+		init();
+	}
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public void init() {
@@ -68,7 +103,7 @@ public class Bullet implements SimpleBaseEntity{
 		
 	
 		
-		sprite.setPosition(player.getBody().getPosition().x*32,player.getBody().getPosition().y*32);
+		sprite.setPosition(startPosition.x,startPosition.y);
 		
 		
 		if(sprite.getVelX() == 0&&sprite.getVelY() != 0){
