@@ -18,6 +18,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 	private Animation right,left,up,down;
 	private float speed = 5;
 	private boolean firstWalk;
+	private boolean secondWalk;
 	
 	private Player player;
 
@@ -50,6 +51,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		sprite.setScale(new Vector2(2,2));
 		
 		firstWalk = false;
+		secondWalk = false;
 	}
 
 	@Override
@@ -68,9 +70,10 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		if(ScreenSettings.level == 2){
 			
 			if(100>Math.hypot(sprite.getX()-player.getBody().getPosition().x*32, sprite.getY()-player.getBody().getPosition().y*32)){
-				System.out.println("jaaaaaaaaaaaaaaaaaaaa");
+			
+				secondWalk = true;
 			}
-			if(false){
+			if(secondWalk){
 				walkBack();
 			}
 		}
@@ -105,6 +108,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		}else if(sprite.getX() >= 1100){
 			sprite.setVelocity(0, speed);
 		}else{
+		
 			sprite.setVelocity(speed, 0);
 		}
 		
@@ -122,6 +126,7 @@ public class Mobster extends SimpleEntity implements SimpleBaseEntity{
 		}else if(sprite.getY()<= 160&&sprite.getX()>=-50){
 			sprite.setVelocity(-1*speed, 0);
 		}else{
+			secondWalk = false;
 			sprite.setVelocity(0,0);
 		}
 		
