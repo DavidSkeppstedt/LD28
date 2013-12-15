@@ -1,6 +1,7 @@
 package se.dixum.ld28.one.entities;
 
 import se.dixum.ld28.one.screens.GameScreen;
+import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.gfx.SimpleSprite;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -47,6 +49,8 @@ public class Money implements SimpleBaseEntity {
 		if (rect.overlaps(GameScreen.PLAYER.getRect())) {
 			if (!pickUp) {
 				money.play();
+				int r = MathUtils.random(25,250);
+				ScreenSettings.moneyAccount +=r;
 			}
 			pickUp = true;
 		
