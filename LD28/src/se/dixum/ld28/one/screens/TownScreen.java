@@ -1,5 +1,6 @@
 package se.dixum.ld28.one.screens;
 
+import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Player;
 import se.dixum.ld28.one.factories.GrannyFactory;
 import se.dixum.ld28.one.util.ScreenSettings;
@@ -64,6 +65,7 @@ public class TownScreen extends SimpleScreen {
 			player.draw(batch);
 			gf.draw(batch);
 			GameScreen.MONEYFACTORY.draw(batch);
+			GameStarter.GAME_TIMER.draw(batch);
 			
 		batch.end();
 		

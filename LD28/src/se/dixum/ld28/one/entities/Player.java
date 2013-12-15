@@ -49,7 +49,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	}
 	
 	public Rectangle getRect() {
-		pRect.set(body.getPosition().x*32, body.getPosition().y*32, 64, 64);
+		pRect.set(body.getPosition().x*32-32, body.getPosition().y*32-32, 64, 64);
 		
 		return pRect;
 		

@@ -23,8 +23,8 @@ public class GrannyFactory {
 	
 	public void spawnGranny() {
 		if (counter > spawnTime) {
-			counter = 0;
 			addGranny();
+			counter = 0;
 		}else {
 			counter +=Gdx.graphics.getDeltaTime();
 		}
@@ -32,7 +32,7 @@ public class GrannyFactory {
 	
 	public void addGranny() {
 		if (grannylist.size < maxNum) {
-				Vector2 v = new Vector2(MathUtils.random(0, 1280-64),MathUtils.random(0, 720));
+				Vector2 v = new Vector2(MathUtils.random(0, 1280-64),MathUtils.random(32, 720));
 				Granny g = new Granny(v);
 				grannylist.add(g);
 				v = null;
@@ -43,6 +43,14 @@ public class GrannyFactory {
 	}
 	
 	public void checkRemove(){
+		
+		for (int i = grannylist.size-1; i>0; i--) {
+			if (grannylist.get(i).isAfraid()) {
+				grannylist.removeIndex(i);
+			}
+		}
+		
+		
 		
 	}
 	

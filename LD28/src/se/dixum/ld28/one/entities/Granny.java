@@ -7,7 +7,6 @@ import se.dixum.simple.entities.base.SimpleEntity;
 import se.dixum.simple.gfx.SimpleAnimated;
 import se.dixum.simple.utils.SimpleInput;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,11 +23,12 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	,stand_l,stand_r,stand_u,stand_d;
 	private Vector2 position;
 	
-	private float timer = 2,timer2 = 1.3f;
-	private float count = 0,count2 = 0;
+	private float timer = 2,timer2 = 0.6f,time3 = 1.5f;
+	private float count = 0,count2 = 0,count3 = 0;
+	
 	private boolean afraid = false;
 	private boolean shouldDisable = false;
-	private SimpleSound scream;
+	private SimpleSound scream,boo;
 	private boolean drop = false;
 	public Granny(Vector2 position) {
 		this.position = position;
@@ -48,14 +48,15 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		left = sprite.createAnimation(3, 6, 0);
 		up = sprite.createAnimation(6, 9, 0);
 		down = sprite.createAnimation(9, 12, 0);
-		
+		sprite.setPosition(position);
 		sprite.setCurrentAnimation(right);
 		
-		sprite.setPosition(new Vector2(320,320));
+		//sprite.setPosition(new Vector2(320,320));
 		sprite.setVelX(1.5f);
 		
 		scream = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/granny/granny.ogg")));
-		
+		scream.setVolume(0.3f);
+		boo = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/granny/boo.ogg")));
 		
 	}
 
@@ -63,6 +64,33 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	public void update(float delta) {
 		sprite.updateAnimation(delta);
 		sprite.setPosition(sprite.getX() + sprite.getVelX(),sprite.getY()+sprite.getVelY());
+		
+		if (Math.hypot(Math.abs(GameScreen.PLAYER.getSprite().getX()*32 - sprite.getX()),
+				Math.abs(GameScreen.PLAYER.getSprite().getY()*32 - sprite.getY())) < 150) {
+			if (SimpleInput.ACTION) {
+				SimpleInput.ACTION = false;
+				drop = true;
+				boo.play();
+				runAway();
+			}
+			
+		}
+		
+		if (shouldDisable) {
+			
+			if (count3 > time3) {
+				setAfraid(true);
+				count3 = 0;
+			}else {
+				count3 +=Gdx.graphics.getDeltaTime();
+			}
+			
+			
+			
+		}
+		
+		
+		
 		move();
 		changeAnim();
 		dropMoney();
@@ -73,10 +101,11 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		if (drop) {
 				
 				if (count2 > timer2) {
-					System.out.println("MEONY");
+					
 					GameScreen.MONEYFACTORY.addMoney(new Money(new Vector2(sprite.getX(),sprite.getY())));
 					count2 = 0;
 					drop=false;
+					
 				}else {
 					count2 +=Gdx.graphics.getDeltaTime();
 				}
@@ -89,29 +118,30 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 	}
 	
 	private void runAway() {
-		System.out.println("ARGH!");
+		
 		scream.play();
 		
 		count = -100;
 		shouldDisable = true;
+		
 		//Play some  sound here maybe?
+		
 		float n = MathUtils.random(0,100);
-		if (n > 0&&n > 25) {
+		System.out.println(n);
+		if (n < 25) {
 			//First quadrant
 			//++
 			
 			sprite.setVelocity(4, 4);
-			
-			
-			
+
 		}
-		if (n >25 && n > 50) {
+		if (n >25 && n < 50) {
 			//Sec quadrant
 			//-+
 			sprite.setVelocity(-4, 4);
 		}
 		
-		if (n >50 && n>75) {
+		if (n >50 && n<75) {
 			//third quadrant
 			//--
 			sprite.setVelocity(-4, -4);
@@ -143,23 +173,12 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		
 		
 		
-		if (Math.hypot(Math.abs(GameScreen.PLAYER.getSprite().getX()*32 - sprite.getX()),
-				Math.abs(GameScreen.PLAYER.getSprite().getY()*32 - sprite.getY())) < 150) {
-			if (SimpleInput.ACTION) {
-				SimpleInput.ACTION = false;
-				//DROP MONEY!
-				//RUN AWAY!
-				drop = true;
-				
-				runAway();
-			}
-			
-		}
+	
 		
 		
 		
 		
-		if (count > timer) {
+		if (count > timer && !shouldDisable) {
 			
 			
 			int r = MathUtils.random(0,100);
@@ -201,6 +220,16 @@ public class Granny extends SimpleEntity implements SimpleBaseEntity {
 		 
 		sprite.drawAnimation(batch);
 
+	}
+
+
+	public boolean isAfraid() {
+		return afraid;
+	}
+
+
+	public void setAfraid(boolean afraid) {
+		this.afraid = afraid;
 	}
 
 }
