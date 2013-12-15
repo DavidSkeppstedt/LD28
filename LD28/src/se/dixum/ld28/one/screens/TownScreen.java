@@ -62,9 +62,17 @@ public class TownScreen extends SimpleScreen {
 		GameScreen.MONEYFACTORY.update(delta);
 		hud.update(delta);
 		
+
+		
+		if (ScreenSettings.moneyAccount >= 0) {
+			getGame().setScreen(new BankScreen(getGame()));
+		}
+		
+
 		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
 			getGame().setScreen(new HouseScreen2(getGame()));
 		}
+
 	}
 
 	@Override

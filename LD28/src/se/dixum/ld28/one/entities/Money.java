@@ -58,6 +58,8 @@ public class Money implements SimpleBaseEntity {
 		
 		
 
+		
+
 	}
 
 	@Override
