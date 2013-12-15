@@ -1,4 +1,14 @@
-LD28
+ONE DAY TO PAY BACK
 ====
 
-My game for the LD28 game jam.
+A Game created for the 28th Ludum Dare.
+
+WASD or ARROWS to move.
+ENTER to speek in dialog.
+SPACE to interact.
+
+
+Game made by
+>>Andreas Brommund - Programming and Art.
+>>David Skeppstedt - Programming, art and sound effects.
+>>Oscar Andersson - Art.
