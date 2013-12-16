@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="bank" tilewidth="32" tileheight="32">
+  <image source="bank.png" width="512" height="64"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1rsKgDAMQNH4KEJVFOvj///UDBk6FCQoTSIZzhh6l4QGAAiKJeX2zIEaIt1VcqGWcGcHorUvotX7vO/HfclI34JGpplw556U+mL2njSLfRualPhqP2p4c1+8z/u8r778f3+ijkh3WdErdwO1fzyH
+  </data>
+ </layer>
+ <objectgroup name="collision" width="40" height="24">
+  <object x="-4" y="-4" width="1280" height="21"/>
+  <object x="1268" y="-5" width="11" height="772"/>
+  <object x="1" y="756" width="1279" height="11"/>
+  <object x="-5" y="-4" width="16" height="767"/>
+  <object x="-1" y="68" width="125" height="25"/>
+  <object x="105" y="96" width="22" height="192"/>
+  <object x="-3" y="675" width="124" height="28"/>
+  <object x="1013" y="-109"/>
+  <object x="577" y="97" width="63" height="30"/>
+  <object x="112" y="479" width="17" height="195"/>
+ </objectgroup>
+</map>
