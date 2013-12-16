@@ -1,5 +1,6 @@
 package se.dixum.ld28.one.entities;
 
+import se.dixum.ld28.one.factories.PoliceFactory;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.audio.SimpleSound;
@@ -91,11 +92,10 @@ public class Police implements SimpleBaseEntity{
 			if (getRect().overlaps(b.getRectangle())) {
 				//Player hit!
 				if (!b.isDead()){
-					hitpoints-=25;
+					hitpoints-=50;
 					if (state!=State.TAUNTED) {
 						state = State.TAUNTED;
 					}
-					
 					b.setDead(true);
 				}
 			}
@@ -138,6 +138,8 @@ public class Police implements SimpleBaseEntity{
 		
 			if (hitpoints <=0) {
 				dead = true;
+				
+				PoliceFactory.removed_police +=1;
 			}
 		
 			

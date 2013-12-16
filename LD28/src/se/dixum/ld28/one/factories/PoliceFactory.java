@@ -15,7 +15,7 @@ public class PoliceFactory implements SimpleBaseEntity{
 	private Array<Police> policelist;
 	private int maxPolice = 5;
 	private SimpleTileMap map;
-	public int removed_police = 1;
+	public static int removed_police = 0;
 	
 	private float count = 0,timer = 0.01f;
 	
@@ -69,8 +69,9 @@ public class PoliceFactory implements SimpleBaseEntity{
 		for (int i = policelist.size-1; i > 0; i--) {
 			
 			if (policelist.get(i).isDead()) {
+				
 				policelist.removeIndex(i);
-				removed_police++;
+				
 			}
 			
 			
