@@ -1,9 +1,8 @@
 package se.dixum.ld28.one.entities;
 
-import java.util.ArrayList;
-
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.ScreenSettings;
+import se.dixum.simple.audio.SimpleSound;
 import se.dixum.simple.entities.base.Angle;
 import se.dixum.simple.entities.base.SimpleBaseEntity;
 import se.dixum.simple.entities.base.SimpleEntity;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -49,6 +47,8 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 	private long endTime = 0;
 	private int sleepTime = 1000; 
 	private boolean timerOn = false; 
+	
+	private SimpleSound shootSound;
 	
 	public Player(World world) {
 	
@@ -113,6 +113,9 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 
 		dialog2 = new Dialog("dialogs/dialog2.txt");
 		dialog3 = new Dialog("dialogs/dialog3.txt");
+		
+		
+		shootSound = new SimpleSound(Gdx.audio.newSound(Gdx.files.internal("sound/police/fire.ogg")));
 	}
 
 	@Override
@@ -280,7 +283,10 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		return dialog3;
 	}
 	public void shoot() {
-		System.out.println(ScreenSettings.level);
+
+		
+		shootSound.play();
+
 		if(ScreenSettings.level != 0&&ScreenSettings.level != 2){
 			int r = 0;
 			switch (getAngle()){
@@ -302,6 +308,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			}
 			
 			bullets.add(new Bullet(new Vector2(getBody().getPosition().x *32,getBody().getPosition().y*32), r));
+
 		}
 	}
 
@@ -319,5 +326,15 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 			endTime = TimeUtils.millis()+sleepTime;
 			timerOn = true; 
 		}
+	}
+
+
+	public Array<Bullet> getBullets() {
+		return bullets;
+	}
+
+
+	public void setBullets(Array<Bullet> bullets) {
+		this.bullets = bullets;
 	}
 }

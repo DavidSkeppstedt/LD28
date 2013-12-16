@@ -2,12 +2,13 @@ package se.dixum.ld28.one.screens;
 
 import se.dixum.ld28.one.GameStarter;
 import se.dixum.ld28.one.entities.Player;
-import se.dixum.ld28.one.factories.GrannyFactory;
+import se.dixum.ld28.one.factories.PoliceFactory;
 import se.dixum.ld28.one.map.Hud;
 import se.dixum.ld28.one.util.ScreenSettings;
 import se.dixum.simple.gfx.SimpleGL;
 import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +20,7 @@ public class BankScreen extends SimpleScreen {
 	private Player player;
 	private SimpleTileMap map;
 	private Hud hud;
+	private PoliceFactory pf;
 
 	public BankScreen(Game game) {
 		super(game);
@@ -41,7 +43,7 @@ public class BankScreen extends SimpleScreen {
 		player.setFreezPlayer(false);
 		player.getBody().setTransform(38, 11, 0);
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/32f);
-		
+		pf = new PoliceFactory(map);
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class BankScreen extends SimpleScreen {
 		player.update(delta);
 		GameScreen.WORLD.step(delta, 6, 3);
 		hud.update(delta);
-		
+		pf.update(delta);
 		
 	}
 
@@ -62,7 +64,7 @@ public class BankScreen extends SimpleScreen {
 		batch.begin();
 			player.draw(batch);
 		
-			
+			pf.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
 
