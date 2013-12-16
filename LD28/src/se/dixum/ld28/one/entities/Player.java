@@ -136,9 +136,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		sprite.setPosition(body.getPosition());
 		sprite.setRotation(body.getAngle()*MathUtils.radiansToDegrees);
 		
-		if (Gdx.input.isKeyPressed(Keys.R)) {
-			sprite.setPosition(new Vector2(120,100));
-		}
+	
 		if(sprite.getPosition().x>=10&&!metMobbster){
 			freezPlayer = true;
 			metMobbster = true;

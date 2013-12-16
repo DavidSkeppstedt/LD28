@@ -1,5 +1,6 @@
 package se.dixum.ld28.one;
 
+import se.dixum.ld28.one.screens.GameOverScreeen;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.GameTimer;
 
@@ -23,6 +24,10 @@ public class GameStarter extends Game {
 	public void render() {
 		super.render();
 		GAME_TIMER.checkTimer();
+		
+		if (!GAME_TIMER.isTimerOn()) {
+			setScreen(new GameOverScreeen(this));
+		}
 	}
 	
 

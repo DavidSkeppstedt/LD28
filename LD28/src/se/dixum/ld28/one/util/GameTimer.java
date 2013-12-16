@@ -48,6 +48,11 @@ public class GameTimer {
 			}
 		}
 		
+		
+		
+		
+		
+		
 	}
 	/**
 	 * @param in milliseconds
@@ -73,5 +78,11 @@ public class GameTimer {
 			font.draw(batch, "Time Left: Hours: "+hours+"   Minutes: "+minutes+"   Seconds: "+seconds,225,760);
 
 		}
+	}
+	public boolean isTimerOn() {
+		return timerOn;
+	}
+	public void setTimerOn(boolean timerOn) {
+		this.timerOn = timerOn;
 	}
 }
