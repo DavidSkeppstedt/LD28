@@ -346,8 +346,8 @@ public class Police implements SimpleBaseEntity{
 		//Find player
 		float px = GameScreen.PLAYER.getBody().getPosition().x *32;
 		float py = GameScreen.PLAYER.getBody().getPosition().y *32;
-		float dif = 64;
-		float dify = 64;
+		float dif = 128;
+		float dify = 128;
 		
 		if (sprite.getX() > (px-dif) && sprite.getX() <(px+dif) ) {
 			xFound = true;
@@ -444,6 +444,14 @@ public class Police implements SimpleBaseEntity{
 		}
 		}
 		
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 
 }

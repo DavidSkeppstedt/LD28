@@ -21,6 +21,7 @@ public class BankScreen extends SimpleScreen {
 	private SimpleTileMap map;
 	private Hud hud;
 	private PoliceFactory pf;
+	private int needed_kills = 5;
 
 	public BankScreen(Game game) {
 		super(game);
@@ -52,6 +53,15 @@ public class BankScreen extends SimpleScreen {
 		GameScreen.WORLD.step(delta, 6, 3);
 		hud.update(delta);
 		pf.update(delta);
+		
+		System.out.println(pf.removed_police);
+		if (needed_kills == pf.removed_police) {
+			//move to win screen!
+			System.out.println("YAY!");
+		}
+		
+		
+		
 		
 	}
 

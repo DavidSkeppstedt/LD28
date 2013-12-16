@@ -68,7 +68,7 @@ public class GameScreen extends SimpleScreen {
 		logo = new SimpleSprite(new TextureRegion(new Texture(Gdx.files.internal("gfx/title/title.png"))), new Vector2(320,320));
 		music = new SimpleMusic(Gdx.audio.newMusic(Gdx.files.internal("sound/music/music.ogg")));
 		music.setLooping(true);
-		music.play();
+		//music.play();
 
 	}
 	public static void reInit() {

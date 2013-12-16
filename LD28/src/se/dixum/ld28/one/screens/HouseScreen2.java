@@ -27,6 +27,9 @@ public class HouseScreen2 extends SimpleScreen{
 	private boolean  shouldRobBank = false;
 	private boolean moneyget = false;
 	
+	
+	
+	
 	public HouseScreen2(Game game) {
 		super(game);
 		
@@ -69,6 +72,13 @@ public class HouseScreen2 extends SimpleScreen{
 				
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 
