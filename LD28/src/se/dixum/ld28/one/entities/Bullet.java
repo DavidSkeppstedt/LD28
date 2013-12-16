@@ -155,8 +155,8 @@ public class Bullet implements SimpleBaseEntity{
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		if (!dead){
-		sprite.drawAnimation(batch);
+		if (!dead && sprite !=null){
+			sprite.drawAnimation(batch);
 		}
 	}
 	public boolean isOutOfMap(){

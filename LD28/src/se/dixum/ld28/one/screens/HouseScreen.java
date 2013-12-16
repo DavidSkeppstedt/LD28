@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +31,7 @@ public class HouseScreen extends SimpleScreen {
 	private GameTimer gameTimer; 
 	private Hud hud;
 	private Rectangle door;
-	
+	private BitmapFont font;
 
 	
 	
@@ -54,7 +55,7 @@ public class HouseScreen extends SimpleScreen {
 		
 		door = new Rectangle(0, 96, 64, 64);
 		
-		
+		font = new BitmapFont(Gdx.files.internal("font/gameover.fnt"));
 	}
 
 	@Override
@@ -65,10 +66,13 @@ public class HouseScreen extends SimpleScreen {
 		dialog.update(delta);
 		hud.update(delta);
 		
-		//For dev only
-		if (Gdx.input.isKeyPressed(Keys.NUM_0)) {
-			getGame().setScreen(new BankScreen(getGame()));
+		
+		if (dialog.getTalked()) {
+			ScreenSettings.TIMER_START = true;
 		}
+		
+		
+
 		
 		
 		if (player.getRect().overlaps(door)) {
@@ -93,6 +97,9 @@ public class HouseScreen extends SimpleScreen {
 			dialog.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
+			font.drawMultiLine(batch, "Shoot - ALT \n"
+					+ "Scare Granny - Space\n"
+					+ "Talk - Enter",  800, 700);
 		batch.end();
 		
 		

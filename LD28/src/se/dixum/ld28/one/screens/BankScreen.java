@@ -55,7 +55,7 @@ public class BankScreen extends SimpleScreen {
 		hud.update(delta);
 		pf.update(delta);
 		
-		System.out.println(pf.removed_police);
+		
 		if (needed_kills == pf.removed_police) {
 			
 			Vector2 v = new Vector2(player.getBody().getPosition().x,player.getBody().getPosition().y);

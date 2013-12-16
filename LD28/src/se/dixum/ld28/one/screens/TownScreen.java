@@ -69,10 +69,7 @@ public class TownScreen extends SimpleScreen {
 			getGame().setScreen(new HouseScreen2(getGame()));
 		}
 		
-		//For devs only
-		if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-			getGame().setScreen(new HouseScreen2(getGame()));
-		}
+
 		
 
 		police.update(delta);

@@ -3,6 +3,7 @@ package se.dixum.ld28.one;
 import se.dixum.ld28.one.screens.GameOverScreeen;
 import se.dixum.ld28.one.screens.GameScreen;
 import se.dixum.ld28.one.util.GameTimer;
+import se.dixum.ld28.one.util.ScreenSettings;
 
 import com.badlogic.gdx.Game;
 
@@ -24,8 +25,8 @@ public class GameStarter extends Game {
 	public void render() {
 		super.render();
 		GAME_TIMER.checkTimer();
-		
-		if (!GAME_TIMER.isTimerOn()) {
+	
+		if (ScreenSettings.TIMER_START&&!GAME_TIMER.isTimerOn()) {
 			setScreen(new GameOverScreeen(this));
 		}
 	}
