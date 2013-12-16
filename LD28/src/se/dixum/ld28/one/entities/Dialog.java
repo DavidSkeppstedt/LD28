@@ -21,6 +21,9 @@ public class Dialog implements SimpleBaseEntity{
 
 	private Conversation conversation; 
 	private Array<Array<String>> conversations; 
+	public boolean isTalk() {
+		return talk;
+	}
 	private String currentSpeecher, currentDialog;
 	private int speekIndex = 0;
 	private	SimpleSprite dialogRectangle; 

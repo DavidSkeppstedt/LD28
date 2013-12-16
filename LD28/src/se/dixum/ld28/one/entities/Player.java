@@ -124,11 +124,23 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		dialog2.update(delta);
 		dialog3.update(delta);
 		
-
 		
 		changeAnimation(delta);
 	
-		movement();
+		
+		if(ScreenSettings.level == 2){
+			if(!dialog2.isTalk()){
+				movement();
+			}else if(dialog2.getTalked()){
+				movement();
+			}else{
+				getBody().setLinearVelocity(0, 0);
+			}
+		}else{
+			movement();
+		}
+		
+		
 		if(freezPlayer){
 			body.setLinearVelocity(0, 0);
 			
@@ -145,7 +157,7 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		}
 		
 		if(checkTimer()&&Gdx.input.isKeyPressed(Keys.ALT_LEFT)){
-			if(ScreenSettings.level > 0){
+			if(ScreenSettings.level != 0&&ScreenSettings.level != 2){
 				starTimer();
 				shoot();
 			}
