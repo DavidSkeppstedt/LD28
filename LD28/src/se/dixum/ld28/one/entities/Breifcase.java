@@ -33,21 +33,29 @@ public class Breifcase implements SimpleBaseEntity {
 					
 				
 				
-				), new Vector2(300,300));
+				), new Vector2(200,364));
 		
 		
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
 		
+	
 	}
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		// TODO Auto-generated method stub
+		
 		sprite.drawSprite(batch);
+	}
+
+	public Rectangle getRect() {
+		return new Rectangle(sprite.getPosition().x,sprite.getPosition().y,32,32);
+	}
+
+	public void setRect(Rectangle rect) {
+		this.rect = rect;
 	}
 	
 

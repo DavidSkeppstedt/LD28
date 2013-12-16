@@ -10,8 +10,11 @@ import se.dixum.simple.gfx.SimpleTileMap;
 import se.dixum.simple.screen.base.SimpleScreen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class BankWinScreen extends SimpleScreen {
 	
@@ -21,8 +24,10 @@ public class BankWinScreen extends SimpleScreen {
 	private SimpleTileMap map;
 	private Hud hud;
 	private Breifcase breifcase;
-	
-	public BankWinScreen(Game game) {
+	private boolean win = false;
+	private Texture t;
+	private Vector2 pposition;
+	public BankWinScreen(Game game,Vector2 pos) {
 		super(game);
 		
 		
@@ -37,13 +42,14 @@ public class BankWinScreen extends SimpleScreen {
 		hud = GameScreen.HUD;
 		
 		map = new SimpleTileMap("gfx/world/map/bank/bankwin.tmx", 1);
-		
+		pposition = new Vector2(GameScreen.PLAYER.getBody().getPosition().x,GameScreen.PLAYER.getBody().getPosition().y);
 		GameScreen.reInit();
 		player = GameScreen.PLAYER;
 		player.setFreezPlayer(false);
-		player.getBody().setTransform(38, 11, 0);
+		player.getBody().setTransform(pposition.x,pposition.y, 0);
 		SimpleTileMap.parseTileMap(map, "collision",GameScreen.WORLD, 1/32f);
 		breifcase = new Breifcase();
+		t = new Texture(Gdx.files.internal("gfx/win.png"));
 	}
 
 	@Override
@@ -53,7 +59,10 @@ public class BankWinScreen extends SimpleScreen {
 		hud.update(delta);
 		breifcase.update(delta);
 		
-	
+		if (breifcase.getRect().overlaps(GameScreen.PLAYER.getRect())) {
+			
+			win = true;
+		}
 		
 		
 		
@@ -67,11 +76,18 @@ public class BankWinScreen extends SimpleScreen {
 		map.draw(camera);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+			
+		
 			player.draw(batch);
 			breifcase.draw(batch);
 			
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
+			
+			if (win){
+				batch.draw(t, 0, 0);
+			}
+			
 			
 			
 		batch.end();

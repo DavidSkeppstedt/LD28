@@ -12,6 +12,7 @@ import se.dixum.simple.screen.base.SimpleScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class BankScreen extends SimpleScreen {
 	
@@ -56,7 +57,10 @@ public class BankScreen extends SimpleScreen {
 		
 		System.out.println(pf.removed_police);
 		if (needed_kills == pf.removed_police) {
-			getGame().setScreen(new BankWinScreen(getGame()));
+			
+			Vector2 v = new Vector2(player.getBody().getPosition().x,player.getBody().getPosition().y);
+			
+			getGame().setScreen(new BankWinScreen(getGame(),v));
 		}
 		
 		
