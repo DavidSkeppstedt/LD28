@@ -67,7 +67,7 @@ public class HouseScreen extends SimpleScreen {
 		
 		//For dev only
 		if (Gdx.input.isKeyPressed(Keys.NUM_0)) {
-			getGame().setScreen(new BankScreen(getGame()));
+			getGame().setScreen(new BankWinScreen(getGame()));
 		}
 		
 		

@@ -56,8 +56,7 @@ public class BankScreen extends SimpleScreen {
 		
 		System.out.println(pf.removed_police);
 		if (needed_kills == pf.removed_police) {
-			//move to win screen!
-			System.out.println("YAY!");
+			getGame().setScreen(new BankWinScreen(getGame()));
 		}
 		
 		
