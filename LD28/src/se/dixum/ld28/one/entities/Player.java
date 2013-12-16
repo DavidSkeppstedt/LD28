@@ -124,11 +124,26 @@ public class Player extends SimpleEntity implements SimpleBaseEntity {
 		dialog2.update(delta);
 		dialog3.update(delta);
 		
-
 		
 		changeAnimation(delta);
 	
-		movement();
+		
+		if(ScreenSettings.level == 2){
+			if(!dialog2.isTalk()){
+				movement();
+				System.out.println("2");
+			}else if(dialog2.getTalked()){
+				movement();
+				System.out.println("3");
+			}else{
+				System.out.println("1");
+				getBody().setLinearVelocity(0, 0);
+			}
+		}else{
+			movement();
+		}
+		
+		
 		if(freezPlayer){
 			body.setLinearVelocity(0, 0);
 			
