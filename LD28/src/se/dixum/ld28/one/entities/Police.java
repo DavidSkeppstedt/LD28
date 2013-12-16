@@ -282,22 +282,24 @@ public class Police implements SimpleBaseEntity{
 			counter +=Gdx.graphics.getDeltaTime();
 		}
 		
+		//5 19 20 21 22 
 		
-		
-		
-		if (map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == -1) {
-			
-			if (Math.abs(sprite.getVelX()) > 0 ) {
-				sprite.setVelX(sprite.getVelX()*-1);
+		if (ScreenSettings.level == 3) {
+			if (map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 6
+				|| map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 20
+				|| map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 21
+				|| map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 22
+				|| map.getTileID(sprite.getPosition().x/32, sprite.getPosition().y/32, 0) == 23
+				) {
+				
+				if (Math.abs(sprite.getVelX()) > 0 ) {
+					sprite.setVelX(sprite.getVelX()*-1);
+				}
+				if (Math.abs(sprite.getVelY()) > 0 ) {
+					sprite.setVelY(sprite.getVelY()*-1);
+				}
+	
 			}
-			if (Math.abs(sprite.getVelY()) > 0 ) {
-				sprite.setVelY(sprite.getVelY()*-1);
-			}
-			
-			
-			
-			
-			
 		}
 		
 		

@@ -77,7 +77,7 @@ public class BankScreen extends SimpleScreen {
 			pf.draw(batch);
 			GameStarter.GAME_TIMER.draw(batch);
 			hud.draw(batch);
-
+			
 			
 		batch.end();
 		
