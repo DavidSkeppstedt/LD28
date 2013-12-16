@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Bullet implements SimpleBaseEntity{
 
-	private Animation bulletUp, bulletDown, bulletLeft, bulletRight;
+	private Animation bulletUp, bulletDown, bulletLeft, bulletRight, bulletUpLeft, bulletUpRight, bulletDownLeft, bulletDownRight;
 	private SimpleAnimated sprite;
 	private Vector2 startPosition;
 	private float speed; 
@@ -22,13 +22,12 @@ public class Bullet implements SimpleBaseEntity{
 	/**
 	 * 
 	 * @param player
-	 * @param dir direction 1 = up 2 = left 3 = down 4 = right
+	 * @param dir direction 1 = up 2 = left 3 = down 4   
 	 */
 	public Bullet(Vector2 startPosition, int dir){
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/bullet.png")), 16, 16, 0);
 		
 		speed = 10;
-		
 		
 		switch (dir) {
 		case 1:
@@ -63,22 +62,36 @@ public class Bullet implements SimpleBaseEntity{
 		
 		sprite = new SimpleAnimated(new Texture(Gdx.files.internal("gfx/player/bullet.png")), 16, 16, 0);
 		
+		bulletUpLeft = sprite.createAnimation(7, 8, 0);
+		bulletUpRight = sprite.createAnimation(5, 6, 0);
+		bulletDownLeft = sprite.createAnimation(6, 7, 0);
+		bulletDownRight = sprite.createAnimation(4, 5, 0);
+		
+		
+		
+		
 		
 		float x = end.x; 
 		float y = end.y;
 		
 		if (x > 0 && y > 0) {
 			sprite.setVelocity(2, 2);
+			sprite.setCurrentAnimation(bulletUpLeft);
 		}
 		if (x < 0 && y > 0) {
 			sprite.setVelocity(-2, 2);
+			sprite.setCurrentAnimation(bulletUpRight);
 		}
 		if (x < 0 && y < 0) {
 			sprite.setVelocity(-2, -2);
+			sprite.setCurrentAnimation(bulletDownLeft);
 		}
 		if (x > 0 && y < 0) {
 			sprite.setVelocity(2, -2);
+			sprite.setCurrentAnimation(bulletDownRight);
 		}
+		
+		
 		
 		
 		this.startPosition = startposition;
@@ -118,8 +131,6 @@ public class Bullet implements SimpleBaseEntity{
 			}else{
 				sprite.setCurrentAnimation(bulletRight);
 			}
-		}else {
-			sprite.setCurrentAnimation(bulletRight);
 		}
 		
 		
